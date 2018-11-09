@@ -16,8 +16,6 @@ lightBox.addEventListener('click', () => {
     showMenu(false);
 })
 
-
-
 function showMenu(bool) {
     if (bool === true) {
         sidebar.classList.add('expanded');
