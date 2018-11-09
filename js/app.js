@@ -1,12 +1,17 @@
+const notesOutput = document.querySelector('#notes-output');
+const notesArray = [];
+
 // Initialize Quill editor
 var quill = new Quill('#editor', {
-    theme: 'snow'
+  theme: 'snow'
 });
 
 function noteConstructor(content) {
+  let d = new Date();
+  let date = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
   let note = {
     id: guid(),
-    dateTime: new Date(),
+    dateTime: date,
     favorite: false,
     deleted: false,
     title: noteTitle(),
@@ -17,23 +22,33 @@ function noteConstructor(content) {
 }
 
 function storeNote() {
-  let content = quill.getContents();
-  localStorage.setItem('note',JSON.stringify(noteConstructor(content)));
-  console.log()
+  let note = noteConstructor(quill.getContents());
+  notesArray.push(note);
+  localStorage.setItem('note', JSON.stringify(notesArray));
+  console.log(localStorage);
   quill.setContents('');
+  showNotes(createNoteElements());
 }
 
-function getNote() {
+function getNote(id) {
   let storage = localStorage.getItem('note');
   let content = JSON.parse(storage);
-  console.log("content",content);
-  quill.setContents(content.content);
-  console.log("note", localStorage.getItem('note'));
+
+  content.forEach(e => {
+    console.log(e.id);
+    console.log(id);
+    if (e.id === id) {
+      quill.setContents(e.content);
+      console.log('yes');
+    } else {
+      console.log('continue');
+    }
+  });
 }
 
 function noteTitle() {
   let title = quill.getContents().ops[0].insert;
-  console.log("title",title);
+  return title;
 }
 
 function guid() {
@@ -44,3 +59,43 @@ function guid() {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
+
+function createNoteElements() {
+  let notes = JSON.parse(localStorage.getItem('note'));
+  const li = document.createElement('li');
+  const h4 = document.createElement('h4');
+  const p = document.createElement('p');
+  const date = document.createElement('p');
+  const span = document.createElement('span');
+
+  const domArray = [];
+
+  console.log(notes);
+  notes.forEach(el => {
+    h4.innerHTML = el.title;
+    date.innerHTML = "Date: ";
+    span.innerHTML = el.dateTime;
+
+    li.appendChild(h4);
+    li.appendChild(p);
+    date.appendChild(span);
+    li.appendChild(date);
+
+    li.classList.add('note');
+    li.id = el.id;
+
+    domArray.push(li);
+  });
+
+  return domArray;
+}
+
+function showNotes(createList) {
+  createList.forEach(el => notesOutput.appendChild(el));
+}
+
+notesOutput.addEventListener('click', (e) => {
+  const targetId = e.target.id;
+  getNote(targetId);
+  showMenu(false);
+});
