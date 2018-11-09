@@ -7,6 +7,8 @@ var quill = new Quill('#editor', {
   theme: 'snow'
 });
 
+// Function that creates a new date in YYYY-MM-DD format
+// Time can be added in future
 function getDate() {
   let d = new Date();
   let date = [d.getFullYear(), d.getMonth(), d.getDate()];
