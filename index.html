@@ -73,8 +73,8 @@
     </div>
 
     <div class="buttons">
-      <button name="button" onclick="storeNote()">Save</button>
-      <button name="button" onclick="getNote()">Get</button>
+      <button name="button" onclick="saveNote(currentNote)">Save</button>
+      <button name="button" onclick="newNote()">New Note</button>
     </div>
 
     <div class="lightbox"></div>
@@ -85,6 +85,13 @@
   <!-- Initialize Quill editor -->
   <script src="js/events.js"></script>
   <script src="js/app.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      showNotes(buildDom());
+    })
+  </script>
+
 </body>
 
 </html>
