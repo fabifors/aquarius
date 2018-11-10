@@ -1,0 +1,11 @@
+#Ignore files below
+readme.txt
+
+#Ignore all XD files
+*.xd
+
+#Ignore all PFD and ZIP files
+*.pdf
+*.zip
+
+# Ignore files in folders below
