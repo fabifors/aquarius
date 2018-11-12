@@ -1,4 +1,6 @@
 const notesOutput = document.querySelector('#notes-output');
+const saveBtn = document.querySelector("#save-btn");
+const newBtn = document.querySelector("#new-btn");
 const notesArray = [];
 let domArray = [];
 let currentNote = '';
@@ -104,6 +106,10 @@ function saveNote(id) {
     console.log('saveNote(): No current, creating new note...');
     console.log('saveNote(): Creates new note with ID: ' + note.id);
   }
+  saveBtn.classList.add('success');
+  setTimeout(() => {
+    saveBtn.classList.remove('success');
+  }, 1500);
 };
 
 function findID(id) {
@@ -173,7 +179,7 @@ function showNotes() {
 
 // Function that build the new domArray with notes
 function buildDom() {
-  // Clear the dom tree so no old ones are left
+  // Clear the dom tree so no old notes are left
   clearDom('#notes-output')
 
   // Reset current domArray
@@ -189,10 +195,24 @@ function buildDom() {
 function createElement(obj) {
   // Defines all element variable and create corresponding elements
   const li = document.createElement('li');
+  const mainDiv = document.createElement('div');
   const h4 = document.createElement('h4');
   const p = document.createElement('p');
   const date = document.createElement('p');
   const span = document.createElement('span');
+
+  // Create remove button
+  const btnDiv = document.createElement('div');
+  const removeBtn = document.createElement('i');
+  removeBtn.classList.add('fas', 'fa-times');
+  removeBtn.id = 'remove-btn';
+  removeBtn.onclick = function (e) {
+    let note = e.target.parentNode.parentNode.id;
+    let noteIndex = notesArray.map(n => n.id).indexOf(note);
+    notesArray.splice(noteIndex, 1);
+    clearDom();
+    showNotes(buildDom());
+  }
 
   // Take information from obj and pass it in as innerHTML
   h4.innerHTML = obj.title;
@@ -200,15 +220,21 @@ function createElement(obj) {
   span.innerHTML = obj.dateTime;
 
   // Append all elements to <li> in correct order
-  li.appendChild(h4);
-  li.appendChild(p);
+  mainDiv.appendChild(h4);
+  mainDiv.appendChild(p);
   date.appendChild(span);
-  li.appendChild(date);
+  mainDiv.appendChild(date);
 
+
+  btnDiv.appendChild(removeBtn);
   // Adds the class and id to <li>
+
   li.classList.add('note');
   li.id = obj.id;
 
+  // Append all elements to <li> in correct order
+  li.appendChild(mainDiv);
+  li.appendChild(btnDiv);
   // Return finished <li>
   return li;
 }
@@ -251,8 +277,10 @@ notesOutput.addEventListener('click', (e) => {
   const targetId = e.target.id;
   // Update editor with selected note's ID
   getNote(targetId);
-  // Close menu
-  showMenu(false);
+  // Close menu if note is selected, not removed
+  if (e.target.tagName.toLowerCase() !== 'i') {
+    showMenu(false);
+  }
   // Set local variable to equal new current note's ID
   currentNote = targetId;
 });
