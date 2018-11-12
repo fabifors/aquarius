@@ -49,35 +49,51 @@ var quill = new Quill('#editor', {
 });
 
 // Function that creates a new date in YYYY-MM-DD format
-// Time can be added in future
-function getDate() {
+function getDate(type) {
   let d = new Date();
-  let date = [
-    [d.getFullYear(), d.getMonth(), d.getDate()],
-    [d.getHours(), d.getMinutes()]
-  ];
 
-  if (date[0][2] <= 9) {
-    date[0][2] = '0' + date[0][2];
-  }
-  if (date[0][1] <= 9) {
-    date[0][1] = '0' + date[0][1];
-  }
+  if (type === 'full') {
+    let date = [
+      [d.getFullYear(), d.getMonth(), d.getDate()],
+      [d.getHours(), d.getMinutes()]
+    ];
 
-  if (date[1][0] <= 9) {
-    date[1][0] = '0' + date[1][0];
-  }
-  if (date[1][1] <= 9) {
-    date[1][1] = '0' + date[1][1];
-  }
+    if (date[0][2] <= 9) {
+      date[0][2] = '0' + date[0][2];
+    }
+    if (date[0][1] <= 9) {
+      date[0][1] = '0' + date[0][1];
+    }
 
-  return date[0].join('-') + ' ' + '@' + ' ' + date[1].join(':');
+    if (date[1][0] <= 9) {
+      date[1][0] = '0' + date[1][0];
+    }
+    if (date[1][1] <= 9) {
+      date[1][1] = '0' + date[1][1];
+    }
+
+    return date[0].join('-') + ' ' + '@' + ' ' + date[1].join(':');
+  } else if (type === 'date') {
+    let date = [d.getFullYear(), d.getMonth(), d.getDate()];
+
+    if (date[0][2] <= 9) {
+      date[0][2] = '0' + date[0][2];
+    }
+    if (date[0][1] <= 9) {
+      date[0][1] = '0' + date[0][1];
+    }
+
+    return date.join('-');
+  } else {
+    console.error('No or incorrect function call. Check arguments.');
+  }
 }
 
 function noteConstructor(content) {
   let note = {
     id: guid(),
-    dateTime: getDate(),
+    lastModified: getDate('full'),
+    created: getDate('date'),
     favorite: false,
     deleted: false,
     title: noteTitle(),
@@ -86,22 +102,6 @@ function noteConstructor(content) {
   };
   return note;
 }
-
-// Old functions that got replaced by saveNote()
-
-// function storeNote() {
-//   if (currentNote.length > 5) {
-//     let storage = JSON.parse(localStorage('note'));
-//     storage.get
-//   }
-//   let note = noteConstructor(quill.getContents());
-//   currentNote = note.id;
-//   notesArray.push(note);
-//   localStorage.setItem('note', JSON.stringify(notesArray));
-//   console.log(localStorage);
-//   showNotes(createNoteElements());
-// }
-
 
 function newNote() {
   currentNote = '';
@@ -123,22 +123,14 @@ function getNote(id) {
 
 // Function that takes the current note's ID and saves it
 function saveNote(id) {
-  // Checks if note is in memory
   if (notesArray.find(n => n.id === id.toString())) {
-    // If true: runt update function and save new note in memory
     updateNote(id);
-    // Build and show the new updated DOM
     showNotes(buildDom());
   } else {
-    // If false: create a new note with contents of the editor
     const note = noteConstructor(quill.getContents());
-    // Get the ID and set it as currentNote
     currentNote = note.id;
-    // Place the new note first in the array
     notesArray.unshift(note);
-    // Save note into memory
     localStorage.setItem('note', JSON.stringify(notesArray));
-    // Build and show the new updated DOM
     showNotes(buildDom());
 
     console.log('saveNote(): No current, creating new note...');
@@ -162,7 +154,7 @@ function findNote(id) {
 function updateNote(id) {
   const note = findNote(id);
   note.title = noteTitle();
-  note.dateTime = getDate();
+  note.lastModified = getDate();
   note.content = quill.getContents();
   move(notesArray, notesArray.indexOf(note), 0);
   localStorage.setItem('note', JSON.stringify(notesArray));
@@ -189,22 +181,14 @@ function move(arr, old_index, new_index) {
 
 // Function that takes the current note's ID and saves it
 function saveNote(id) {
-  // Checks if note is in memory
   if (notesArray.find(n => n.id === id.toString())) {
-    // If true: runt update function and save new note in memory
     updateNote(id);
-    // Build and show the new updated DOM
     showNotes(buildDom());
   } else {
-    // If false: create a new note with contents of the editor
     const note = noteConstructor(quill.getContents());
-    // Get the ID and set it as currentNote
     currentNote = note.id;
-    // Place the new note first in the array
     notesArray.unshift(note);
-    // Save note into memory
     localStorage.setItem('note', JSON.stringify(notesArray));
-    // Build and show the new updated DOM
     showNotes(buildDom());
 
     console.log('saveNote(): No current, creating new note...');
@@ -228,7 +212,7 @@ function findNote(id) {
 function updateNote(id) {
   const note = findNote(id);
   note.title = noteTitle();
-  note.dateTime = getDate();
+  note.lastModified = getDate();
   note.content = quill.getContents();
   move(notesArray, notesArray.indexOf(note), 0);
   localStorage.setItem('note', JSON.stringify(notesArray));
@@ -253,6 +237,7 @@ function move(arr, old_index, new_index) {
   return arr;
 }
 
+// Kristian 
 // const move = (arr, old_index, new_index) => arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 
 // Get the note title from editor's first line
@@ -273,27 +258,19 @@ function guid() {
 
 // Takes the buildDom function and appends all notes to the DOM
 function showNotes() {
-  // Appends all items to the DOM in #notes-output
   buildDom().forEach(el => notesOutput.appendChild(el));
 }
 
 // Function that build the new domArray with notes
 function buildDom() {
-  // Clear the dom tree so no old notes are left
   clearDom('#notes-output')
-
-  // Reset current domArray
   domArray = [];
-
-  // Loop through them and push each item to new array
   notesArray.forEach(el => domArray.push(createElement(el)));
-  // Return array
   return domArray;
 }
 
 // Function that takes an object and creates a <li> with contents
 function createElement(obj) {
-  // Defines all element variable and create corresponding elements
   const li = document.createElement('li');
   const mainDiv = document.createElement('div');
   const h4 = document.createElement('h4');
@@ -301,7 +278,6 @@ function createElement(obj) {
   const date = document.createElement('p');
   const span = document.createElement('span');
 
-  // Create remove button
   const btnDiv = document.createElement('div');
   const removeBtn = document.createElement('i');
   removeBtn.classList.add('fas', 'fa-times');
@@ -312,12 +288,13 @@ function createElement(obj) {
     notesArray.splice(noteIndex, 1);
     clearDom();
     showNotes(buildDom());
+    localStorage.setItem('note', JSON.stringify(notesArray));
   }
 
   // Take information from obj and pass it in as innerHTML
   h4.innerHTML = obj.title;
   date.innerHTML = "Updated: ";
-  span.innerHTML = obj.dateTime;
+  span.innerHTML = obj.lastModified;
 
   // Append all elements in correct order
   mainDiv.appendChild(h4);
@@ -333,23 +310,18 @@ function createElement(obj) {
   // Append all elements to <li> in correct order
   li.appendChild(mainDiv);
   li.appendChild(btnDiv);
-  // Return finished <li>
   return li;
 }
 
 // Function that removes the selected element's children
 function clearDom() {
-  // Select element.children and put it in a variable
   const children = notesOutput.children;
 
-  // Check if element has children
   if (children.length > 0) {
-    // If true: remove all children
     while (notesOutput.firstChild) {
       notesOutput.removeChild(notesOutput.firstChild);
     }
   } else {
-    // If false: nothing happens, (console.log)
     console.log('clearDom(): No notes in DOM');
   }
 }
@@ -369,14 +341,10 @@ function start() {
 
 // Click event for the notes in sidebar
 notesOutput.addEventListener('click', (e) => {
-  // Get the clicked note's ID
   const targetId = e.target.id;
-  // Update editor with selected note's ID
   getNote(targetId);
-  // Close menu if note is selected, not removed
   if (e.target.tagName.toLowerCase() !== 'i') {
     showMenu(false);
   }
-  // Set local variable to equal new current note's ID
   currentNote = targetId;
 });
