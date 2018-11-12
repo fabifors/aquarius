@@ -5,6 +5,7 @@ const notesArray = [];
 let domArray = [];
 let currentNote = '';
 
+<<<<<<< HEAD
 var toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
 
@@ -27,6 +28,10 @@ var quill = new Quill('#editor', {
   modules: {
     toolbar: toolbarOptions
   },
+=======
+// Initialize Quill editor
+var quill = new Quill('#editor', {
+>>>>>>> c1b96a3ecf59d96738562de25e40fd4d07973202
   theme: 'snow'
 });
 
@@ -101,6 +106,7 @@ function getNote(id) {
       console.log('getNote(): Open note: ' + e.id);
     }
   }, false);
+<<<<<<< HEAD
 }
 
 // Function that takes the current note's ID and saves it
@@ -132,23 +138,17 @@ function saveNote(id) {
   }, 1500);
 };
 
-function findID(id) {
+function findNote(id) {
   if (id.length > 0) {
     return notesArray.find(note => note.id === id);
   } else {
-    console.error('findID(): No current ID');
+    console.error('findNote(): No current ID');
   }
-}
-
-function removeNote(id) {
-  const noteID = id;
-  notesArray[notesArray.indexOf(n => n.id === noteID)].pop();
 }
 
 // Function that takes ID and change the corresponding note's content, title and date
 function updateNote(id) {
-  // UNDER CONSTRUCTION
-  const note = findID(id);
+  const note = findNote(id);
   note.title = noteTitle();
   note.dateTime = getDate();
   note.content = quill.getContents();
@@ -174,6 +174,78 @@ function move(arr, old_index, new_index) {
   arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   return arr;
 }
+
+=======
+}
+
+// Function that takes the current note's ID and saves it
+function saveNote(id) {
+  // Checks if note is in memory
+  if (notesArray.find(n => n.id === id.toString())) {
+    // If true: runt update function and save new note in memory
+    updateNote(id);
+    // Build and show the new updated DOM
+    showNotes(buildDom());
+  } else {
+    // If false: create a new note with contents of the editor
+    const note = noteConstructor(quill.getContents());
+    // Get the ID and set it as currentNote
+    currentNote = note.id;
+    // Place the new note first in the array
+    notesArray.unshift(note);
+    // Save note into memory
+    localStorage.setItem('note', JSON.stringify(notesArray));
+    // Build and show the new updated DOM
+    showNotes(buildDom());
+
+    console.log('saveNote(): No current, creating new note...');
+    console.log('saveNote(): Creates new note with ID: ' + note.id);
+  }
+  saveBtn.classList.add('success');
+  setTimeout(() => {
+    saveBtn.classList.remove('success');
+  }, 1500);
+};
+
+function findNote(id) {
+  if (id.length > 0) {
+    return notesArray.find(note => note.id === id);
+  } else {
+    console.error('findNote(): No current ID');
+  }
+}
+
+// Function that takes ID and change the corresponding note's content, title and date
+function updateNote(id) {
+  const note = findNote(id);
+  note.title = noteTitle();
+  note.dateTime = getDate();
+  note.content = quill.getContents();
+  move(notesArray, notesArray.indexOf(note), 0);
+  localStorage.setItem('note', JSON.stringify(notesArray));
+  console.log('updateNote(): ' + note.title);
+}
+
+// Code from link that moves item from one spot to another https://www.w3resource.com/javascript-exercises/javascript-array-exercise-38.php
+function move(arr, old_index, new_index) {
+  while (old_index < 0) {
+    old_index += arr.length;
+  }
+  while (new_index < 0) {
+    new_index += arr.length;
+  }
+  if (new_index >= arr.length) {
+    var k = new_index - arr.length;
+    while ((k--) + 1) {
+      arr.push(undefined);
+    }
+  }
+  arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+  return arr;
+}
+
+>>>>>>> c1b96a3ecf59d96738562de25e40fd4d07973202
+// const move = (arr, old_index, new_index) => arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 
 // Get the note title from editor's first line
 function noteTitle() {
@@ -239,16 +311,14 @@ function createElement(obj) {
   date.innerHTML = "Updated: ";
   span.innerHTML = obj.dateTime;
 
-  // Append all elements to <li> in correct order
+  // Append all elements in correct order
   mainDiv.appendChild(h4);
   mainDiv.appendChild(p);
   date.appendChild(span);
   mainDiv.appendChild(date);
-
-
   btnDiv.appendChild(removeBtn);
-  // Adds the class and id to <li>
 
+  // Adds the class and id to <li>
   li.classList.add('note');
   li.id = obj.id;
 
@@ -258,8 +328,6 @@ function createElement(obj) {
   // Return finished <li>
   return li;
 }
-
-
 
 // Function that removes the selected element's children
 function clearDom() {
@@ -303,4 +371,8 @@ notesOutput.addEventListener('click', (e) => {
   }
   // Set local variable to equal new current note's ID
   currentNote = targetId;
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> c1b96a3ecf59d96738562de25e40fd4d07973202
