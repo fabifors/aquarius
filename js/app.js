@@ -27,10 +27,6 @@ var quill = new Quill('#editor', {
   modules: {
     toolbar: toolbarOptions
   },
-=======
-// Initialize Quill editor
-var quill = new Quill('#editor', {
->>>>>>> c1b96a3ecf59d96738562de25e40fd4d07973202
   theme: 'snow'
 });
 
@@ -105,7 +101,6 @@ function getNote(id) {
       console.log('getNote(): Open note: ' + e.id);
     }
   }, false);
-<<<<<<< HEAD
 }
 
 // Function that takes the current note's ID and saves it
@@ -174,9 +169,6 @@ function move(arr, old_index, new_index) {
   return arr;
 }
 
-=======
-}
-
 // Function that takes the current note's ID and saves it
 function saveNote(id) {
   // Checks if note is in memory
@@ -243,7 +235,6 @@ function move(arr, old_index, new_index) {
   return arr;
 }
 
->>>>>>> c1b96a3ecf59d96738562de25e40fd4d07973202
 // const move = (arr, old_index, new_index) => arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 
 // Get the note title from editor's first line
@@ -370,8 +361,4 @@ notesOutput.addEventListener('click', (e) => {
   }
   // Set local variable to equal new current note's ID
   currentNote = targetId;
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> c1b96a3ecf59d96738562de25e40fd4d07973202
