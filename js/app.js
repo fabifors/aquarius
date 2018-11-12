@@ -132,23 +132,17 @@ function saveNote(id) {
   }, 1500);
 };
 
-function findID(id) {
+function findNote(id) {
   if (id.length > 0) {
     return notesArray.find(note => note.id === id);
   } else {
-    console.error('findID(): No current ID');
+    console.error('findNote(): No current ID');
   }
-}
-
-function removeNote(id) {
-  const noteID = id;
-  notesArray[notesArray.indexOf(n => n.id === noteID)].pop();
 }
 
 // Function that takes ID and change the corresponding note's content, title and date
 function updateNote(id) {
-  // UNDER CONSTRUCTION
-  const note = findID(id);
+  const note = findNote(id);
   note.title = noteTitle();
   note.dateTime = getDate();
   note.content = quill.getContents();
@@ -174,6 +168,8 @@ function move(arr, old_index, new_index) {
   arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   return arr;
 }
+
+// const move = (arr, old_index, new_index) => arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 
 // Get the note title from editor's first line
 function noteTitle() {
@@ -239,16 +235,14 @@ function createElement(obj) {
   date.innerHTML = "Updated: ";
   span.innerHTML = obj.dateTime;
 
-  // Append all elements to <li> in correct order
+  // Append all elements in correct order
   mainDiv.appendChild(h4);
   mainDiv.appendChild(p);
   date.appendChild(span);
   mainDiv.appendChild(date);
-
-
   btnDiv.appendChild(removeBtn);
-  // Adds the class and id to <li>
 
+  // Adds the class and id to <li>
   li.classList.add('note');
   li.id = obj.id;
 
@@ -258,8 +252,6 @@ function createElement(obj) {
   // Return finished <li>
   return li;
 }
-
-
 
 // Function that removes the selected element's children
 function clearDom() {
