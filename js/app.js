@@ -277,9 +277,9 @@ function createElement(obj) {
   const p = document.createElement('p');
   const date = document.createElement('p');
   const span = document.createElement('span');
-
   const btnDiv = document.createElement('div');
   const removeBtn = document.createElement('i');
+
   removeBtn.classList.add('fas', 'fa-times');
   removeBtn.id = 'remove-btn';
   removeBtn.onclick = function (e) {
@@ -316,7 +316,6 @@ function createElement(obj) {
 // Function that removes the selected element's children
 function clearDom() {
   const children = notesOutput.children;
-
   if (children.length > 0) {
     while (notesOutput.firstChild) {
       notesOutput.removeChild(notesOutput.firstChild);

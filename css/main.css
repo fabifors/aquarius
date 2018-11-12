@@ -262,6 +262,10 @@ nav ul li a:hover {
 =======================================================
 */
 
+#editor-wrapper {
+    height: 100%;
+}
+
 .ql-toolbar {
     position: fixed;
     width: 100%;
