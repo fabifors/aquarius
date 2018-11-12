@@ -5,22 +5,21 @@ const notesArray = [];
 let domArray = [];
 let currentNote = '';
 
-<<<<<<< HEAD
+var fonts = ['sofia', 'roboto','lobster'];
+var Font = Quill.import('formats/font');
+Font.whitelist = fonts;
+Quill.register(Font, true);
+
+
 var toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-
+  ['bold', 'italic', 'underline', 'strike'],
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-
-
+  [{ 'indent': '-1'}, { 'indent': '+1' }],
   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ 'font': [] }],
+  [{ 'color': [] }, { 'background': [] }],
+  [{ 'font': ['sofia', 'roboto','lobster'] }],
   [{ 'align': [] }],
-
-  ['clean']                                         // remove formatting button
+  ['clean']
 ];
 
 // Initialize Quill editor

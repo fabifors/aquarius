@@ -1,0 +1,35 @@
+
+.ql-snow .ql-picker.ql-font .ql-picker-label::before, .ql-snow .ql-picker.ql-font .ql-picker-item::before {
+    content: 'Sofia';
+    font-family: 'Sofia', sans-serif;
+}
+
+.ql-font-sofia {
+  font-family: 'Sofia', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=sofia]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=sofia]::before {
+    content: 'Sofia';
+    font-family: 'Sofia', sans-serif;
+}
+
+.ql-font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=roboto]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=roboto]::before {
+    content: 'Roboto';
+    font-family: 'Roboto', sans-serif;
+}
+
+.ql-font-lobster {
+  font-family: 'Lobster', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=lobster]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=lobster]::before {
+    content: 'Lobster';
+    font-family: 'Lobster', sans-serif;
+}
