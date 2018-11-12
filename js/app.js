@@ -94,7 +94,7 @@ function noteConstructor(content) {
     id: guid(),
     lastModified: getDate('full'),
     created: getDate('date'),
-    favorite: false,
+    favourite: false,
     deleted: false,
     title: noteTitle(),
     tags: [],
@@ -279,6 +279,33 @@ function createElement(obj) {
   const span = document.createElement('span');
   const btnDiv = document.createElement('div');
   const removeBtn = document.createElement('i');
+  const favBtn = document.createElement('i');
+
+  if (obj.favourite === true) {
+    favBtn.classList.add('fas', 'fa-star', 'active');
+  } else {
+    favBtn.classList.add('far', 'fa-star');
+  }
+  favBtn.id = 'fav-btn';
+
+  favBtn.onclick = (e) => {
+    // let note = e.target.parentNode.parentNode.id;
+    // let noteIndex = notesArray.map(n => n.id).indexOf(note);
+    if (obj.favourite === false) {
+      obj.favourite = true;
+      localStorage.setItem('note', JSON.stringify(notesArray));
+      clearDom();
+      showNotes(buildDom());
+
+    } else if (obj.favourite === true) {
+      obj.favourite = false;
+      localStorage.setItem('note', JSON.stringify(notesArray));
+      clearDom();
+      showNotes(buildDom());
+    } else {
+      console.error('fav-btn(): Something went wrong.');
+    }
+  }
 
   removeBtn.classList.add('fas', 'fa-times');
   removeBtn.id = 'remove-btn';
@@ -301,6 +328,8 @@ function createElement(obj) {
   mainDiv.appendChild(p);
   date.appendChild(span);
   mainDiv.appendChild(date);
+
+  btnDiv.appendChild(favBtn);
   btnDiv.appendChild(removeBtn);
 
   // Adds the class and id to <li>
