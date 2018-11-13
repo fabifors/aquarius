@@ -94,7 +94,7 @@ function noteConstructor(content) {
     id: guid(),
     lastModified: getDate('full'),
     created: getDate('date'),
-    favorite: false,
+    favourite: false,
     deleted: false,
     title: noteTitle(),
     tags: [],
@@ -106,6 +106,7 @@ function noteConstructor(content) {
 function newNote() {
   currentNote = '';
   quill.setContents('');
+  clearDom('#notes-output');
   showNotes(buildDom());
 }
 
@@ -125,12 +126,14 @@ function getNote(id) {
 function saveNote(id) {
   if (notesArray.find(n => n.id === id.toString())) {
     updateNote(id);
+    clearDom('#notes-output');
     showNotes(buildDom());
   } else {
     const note = noteConstructor(quill.getContents());
     currentNote = note.id;
     notesArray.unshift(note);
     localStorage.setItem('note', JSON.stringify(notesArray));
+    clearDom('#notes-output');
     showNotes(buildDom());
 
     console.log('saveNote(): No current, creating new note...');
@@ -154,12 +157,13 @@ function findNote(id) {
 function updateNote(id) {
   const note = findNote(id);
   note.title = noteTitle();
-  note.lastModified = getDate();
+  note.lastModified = getDate('full');
   note.content = quill.getContents();
   move(notesArray, notesArray.indexOf(note), 0);
   localStorage.setItem('note', JSON.stringify(notesArray));
   console.log('updateNote(): ' + note.title);
 }
+
 
 // Code from link that moves item from one spot to another https://www.w3resource.com/javascript-exercises/javascript-array-exercise-38.php
 function move(arr, old_index, new_index) {
@@ -183,12 +187,14 @@ function move(arr, old_index, new_index) {
 function saveNote(id) {
   if (notesArray.find(n => n.id === id.toString())) {
     updateNote(id);
+    clearDom('#notes-output');
     showNotes(buildDom());
   } else {
     const note = noteConstructor(quill.getContents());
     currentNote = note.id;
     notesArray.unshift(note);
     localStorage.setItem('note', JSON.stringify(notesArray));
+    clearDom('#notes-output');
     showNotes(buildDom());
 
     console.log('saveNote(): No current, creating new note...');
@@ -208,16 +214,7 @@ function findNote(id) {
   }
 }
 
-// Function that takes ID and change the corresponding note's content, title and date
-function updateNote(id) {
-  const note = findNote(id);
-  note.title = noteTitle();
-  note.lastModified = getDate();
-  note.content = quill.getContents();
-  move(notesArray, notesArray.indexOf(note), 0);
-  localStorage.setItem('note', JSON.stringify(notesArray));
-  console.log('updateNote(): ' + note.title);
-}
+
 
 // Code from link that moves item from one spot to another https://www.w3resource.com/javascript-exercises/javascript-array-exercise-38.php
 function move(arr, old_index, new_index) {
@@ -263,7 +260,6 @@ function showNotes() {
 
 // Function that build the new domArray with notes
 function buildDom() {
-  clearDom('#notes-output')
   domArray = [];
   notesArray.forEach(el => domArray.push(createElement(el)));
   return domArray;
@@ -279,6 +275,33 @@ function createElement(obj) {
   const span = document.createElement('span');
   const btnDiv = document.createElement('div');
   const removeBtn = document.createElement('i');
+  const favBtn = document.createElement('i');
+
+  if (obj.favourite === true) {
+    favBtn.classList.add('fas', 'fa-star', 'active');
+  } else {
+    favBtn.classList.add('far', 'fa-star');
+  }
+  favBtn.id = 'fav-btn';
+
+  favBtn.onclick = (e) => {
+    // let note = e.target.parentNode.parentNode.id;
+    // let noteIndex = notesArray.map(n => n.id).indexOf(note);
+    if (obj.favourite === false) {
+      obj.favourite = true;
+      localStorage.setItem('note', JSON.stringify(notesArray));
+      clearDom('#notes-output');
+      showNotes(buildDom());
+
+    } else if (obj.favourite === true) {
+      obj.favourite = false;
+      localStorage.setItem('note', JSON.stringify(notesArray));
+      clearDom('#notes-output');
+      showNotes(buildDom());
+    } else {
+      console.error('fav-btn(): Something went wrong.');
+    }
+  }
 
   removeBtn.classList.add('fas', 'fa-times');
   removeBtn.id = 'remove-btn';
@@ -286,7 +309,7 @@ function createElement(obj) {
     let note = e.target.parentNode.parentNode.id;
     let noteIndex = notesArray.map(n => n.id).indexOf(note);
     notesArray.splice(noteIndex, 1);
-    clearDom();
+    clearDom('#notes-output');
     showNotes(buildDom());
     localStorage.setItem('note', JSON.stringify(notesArray));
   }
@@ -301,6 +324,8 @@ function createElement(obj) {
   mainDiv.appendChild(p);
   date.appendChild(span);
   mainDiv.appendChild(date);
+
+  btnDiv.appendChild(favBtn);
   btnDiv.appendChild(removeBtn);
 
   // Adds the class and id to <li>
@@ -329,6 +354,7 @@ function start() {
   let storage = JSON.parse(localStorage.getItem('note'));
   if (storage !== null) {
     storage.forEach(el => notesArray.push(el));
+    clearDom('#notes-output');
     showNotes(buildDom());
   } else {
     console.log('start(): No notes in memory.');
