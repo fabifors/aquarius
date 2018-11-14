@@ -313,6 +313,7 @@ nav ul li a i.fa-star {
 }
 
 .tools {
+    padding-top: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -338,7 +339,17 @@ nav ul li a i.fa-star {
     background: var(--accent-color);
     margin-bottom: 1rem;
     border-bottom: 2px solid hsla(0, 0%, 15%, 0.259);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16)
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16);
+    transition: transform 200ms;
+    transform: scale(1);
+}
+
+.tool-menu>button:hover {
+    transform: scale(1.05);
+}
+
+.tools>button:hover {
+    transform: scale(1.03);
 }
 
 .tool-menu>button {
