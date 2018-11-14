@@ -300,46 +300,92 @@ nav ul li a i.fa-star {
 =======================================================
 */
 
-.buttons {
+.tool-menu {
     position: absolute;
     bottom: 0rem;
     right: 0rem;
-    padding: 1rem;
+    padding: 0 1rem;
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end;
-    flex-direction: column;
-    width: 100%;
+    align-items: center;
+    flex-direction: column-reverse;
     overflow: hidden;
+    width: 90px;
 }
 
-.buttons button {
-    font-size: 1.25rem;
-    width: 4rem;
-    height: 4rem;
-    padding: 1rem;
+.tools {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    transform: translateY(50%);
+    opacity: 0;
+    transition: transform 200ms ease-out, opacity 200ms ease-in;
+}
+
+.tools-expanded {
+    opacity: 1;
+    transform: translateY(0%);
+}
+
+.tool-menu button {
     border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 1rem;
     border: none;
+    color: var(--offwhite);
     background: var(--accent-color);
-    color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
     margin-bottom: 1rem;
-    cursor: pointer;
-    transition: transform 300ms, background 200ms;
-    z-index: 100;
+    border-bottom: 2px solid hsla(0, 0%, 15%, 0.259);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16);
+    transition: transform 200ms;
+    transform: scale(1);
 }
 
-.buttons button:last-of-type {
-    margin-bottom: 0;
-}
-
-.buttons button:hover {
+.tool-menu>button:hover {
     transform: scale(1.05);
 }
 
-.success {
-    background: rgb(0, 192, 0) !important;
+.tools>button:hover {
+    transform: scale(1.03);
 }
+
+.tool-menu>button {
+    padding: 2rem;
+    font-size: 1.25rem;
+    opacity: 1;
+    z-index: 201;
+    background: var(--accent-color);
+}
+
+.tool-menu>button i {
+    position: absolute;
+    transition: transform 300ms, opacity 300ms;
+}
+
+.close-menu1 {
+    opacity: 1;
+    transform: rotate(0);
+}
+
+.close-menu2 {
+    opacity: 0;
+    transform: rotate(-180deg);
+}
+
+.open-menu1 {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+.open-menu2 {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
 
 /*
 =======================================================
