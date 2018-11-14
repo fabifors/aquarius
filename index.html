@@ -74,10 +74,20 @@
       <div id="editor"></div>
     </div>
 
-    <div class="buttons">
-      <button name="button" id="save-btn" onclick="saveNote(currentNote)"><i class="fas fa-save"></i></button>
-      <button name="button" id="new-btn" onclick="newNote()"><i class="fas fa-plus"></i></button>
-    </div>
+    <nav class="tool-menu">
+      <button name="button" class="flex-center-v-h" onclick="toolMenuOpen()">
+        <i class="fas fa-ellipsis-v close-menu1"></i>
+        <i class="fas fa-times close-menu2"></i>
+      </button>
+      <div class="tools">
+        <button name="button" id="new-btn" onclick="newNote(),toolMenuOpen()">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button name="button" id="save-btn" onclick="saveNote(currentNote),toolMenuOpen()">
+          <i class="fas fa-save"></i>
+        </button>
+      </div>
+    </nav>
 
     <div class="lightbox"></div>
   </div>
