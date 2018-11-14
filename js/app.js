@@ -373,3 +373,7 @@ notesOutput.addEventListener('click', (e) => {
   }
   currentNote = targetId;
 });
+
+function printNote() {
+  window.print();
+}

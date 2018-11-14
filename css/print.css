@@ -1,0 +1,21 @@
+@page{
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  body {
+    visibility: hidden;
+  }
+ .ql-editor{
+   visibility: visible;
+   width: 100vw;
+   height: 100vh;
+   position: fixed;
+   margin: 0;
+   top: 0;
+   left: 0;
+   padding: 15px;
+   line-height: 18px;
+ }
+}
