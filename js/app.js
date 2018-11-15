@@ -2,6 +2,7 @@ const notesOutput = document.querySelector('#notes-output');
 const saveBtn = document.querySelector("#save-btn");
 const newBtn = document.querySelector("#new-btn");
 const notesArray = [];
+let favArray = [];
 let domArray = [];
 let currentNote = '';
 
@@ -107,7 +108,7 @@ function newNote() {
   currentNote = '';
   quill.setContents('');
   clearDom('#notes-output');
-  showNotes(buildDom());
+  showNotes(buildDom(notesArray));
 }
 
 // Function that takes in note id and display the note in editor
@@ -127,14 +128,14 @@ function saveNote(id) {
   if (notesArray.find(n => n.id === id.toString())) {
     updateNote(id);
     clearDom('#notes-output');
-    showNotes(buildDom());
+    showNotes(buildDom(notesArray));
   } else {
     const note = noteConstructor(quill.getContents());
     currentNote = note.id;
     notesArray.unshift(note);
     localStorage.setItem('note', JSON.stringify(notesArray));
     clearDom('#notes-output');
-    showNotes(buildDom());
+    showNotes(buildDom(notesArray));
 
     console.log('saveNote(): No current, creating new note...');
     console.log('saveNote(): Creates new note with ID: ' + note.id);
@@ -188,14 +189,14 @@ function saveNote(id) {
   if (notesArray.find(n => n.id === id.toString())) {
     updateNote(id);
     clearDom('#notes-output');
-    showNotes(buildDom());
+    showNotes(buildDom(notesArray));
   } else {
     const note = noteConstructor(quill.getContents());
     currentNote = note.id;
     notesArray.unshift(note);
     localStorage.setItem('note', JSON.stringify(notesArray));
     clearDom('#notes-output');
-    showNotes(buildDom());
+    showNotes(buildDom(notesArray));
 
     console.log('saveNote(): No current, creating new note...');
     console.log('saveNote(): Creates new note with ID: ' + note.id);
@@ -234,7 +235,7 @@ function move(arr, old_index, new_index) {
   return arr;
 }
 
-// Kristian 
+// Kristian
 // const move = (arr, old_index, new_index) => arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 
 // Get the note title from editor's first line
@@ -254,14 +255,14 @@ function guid() {
 }
 
 // Takes the buildDom function and appends all notes to the DOM
-function showNotes() {
-  buildDom().forEach(el => notesOutput.appendChild(el));
+function showNotes(func) {
+  func.forEach(el => notesOutput.appendChild(el));
 }
 
 // Function that build the new domArray with notes
-function buildDom() {
+function buildDom(array) {
   domArray = [];
-  notesArray.forEach(el => domArray.push(createElement(el)));
+  array.forEach(el => domArray.push(createElement(el)));
   return domArray;
 }
 
@@ -291,13 +292,13 @@ function createElement(obj) {
       obj.favourite = true;
       localStorage.setItem('note', JSON.stringify(notesArray));
       clearDom('#notes-output');
-      showNotes(buildDom());
+      showNotes(buildDom(notesArray));
 
     } else if (obj.favourite === true) {
       obj.favourite = false;
       localStorage.setItem('note', JSON.stringify(notesArray));
       clearDom('#notes-output');
-      showNotes(buildDom());
+      showNotes(buildDom(notesArray));
     } else {
       console.error('fav-btn(): Something went wrong.');
     }
@@ -310,7 +311,7 @@ function createElement(obj) {
     let noteIndex = notesArray.map(n => n.id).indexOf(note);
     notesArray.splice(noteIndex, 1);
     clearDom('#notes-output');
-    showNotes(buildDom());
+    showNotes(buildDom(notesArray));
     localStorage.setItem('note', JSON.stringify(notesArray));
   }
 
@@ -355,7 +356,7 @@ function start() {
   if (storage !== null) {
     storage.forEach(el => notesArray.push(el));
     clearDom('#notes-output');
-    showNotes(buildDom());
+    showNotes(buildDom(notesArray));
   } else {
     console.log('start(): No notes in memory.');
   }
@@ -376,4 +377,26 @@ notesOutput.addEventListener('click', (e) => {
 
 function printNote() {
   window.print();
+}
+
+function favPush() {
+  notesArray.forEach(note => {
+  	if(note.favourite === true){
+  		favArray.push(note);
+      }
+  })
+}
+
+function showFavourites() {
+  favPush();
+  clearDom('#notesOutput');
+  showNotes(buildDom(favArray));
+  favArray = [];
+}
+
+function showAllNotes() {
+  favArray = [];
+  clearDom('#notesOutput');
+
+  showNotes(buildDom(notesArray));
 }
