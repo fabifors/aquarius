@@ -27,9 +27,8 @@ a {
 
 .wrapper {
     height: 100vh;
-    overflow: auto;
-    padding-top: 5.725rem;
-    background-color: #f4f4f4;
+    overflow: hidden;
+    padding-top: 3.25rem;
 }
 
 .grid-container {
@@ -275,13 +274,13 @@ nav ul li a i.fa-star {
 =======================================================
 */
 
-#editor-wrapper {
-    height: 100%;
+#editor {
+    border: none;
+    height: calc(100vh - 9rem);
+    overflow-y: scroll;
 }
 
 .ql-toolbar {
-    position: fixed;
-    top: 3.125rem;
     width: 100%;
     z-index: 100;
     background: var(--toolbar-color);
@@ -291,9 +290,7 @@ nav ul li a i.fa-star {
     background-color: white;
     padding: 2.5rem 1.5rem;
     z-index: 20;
-    border: none;
-    outline: none;
-    overflow: auto;
+
 }
 
 /*
@@ -474,12 +471,23 @@ nav ul li a i.fa-star {
 
     .wrapper {
         padding-top: 5.725rem;
+        background-color: #f4f4f4;
     }
 
     #editor {
         padding-bottom: 2.5rem;
         padding-top: 2.5rem;
         overflow: auto;
+        border: 1px solid #ccc;
+    }
+
+    #editor-wrapper {
+        height: 100%;
+    }
+
+    .ql-toolbar {
+        top: 3.125rem;
+        position: fixed;
     }
 
     .ql-editor {
