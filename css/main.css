@@ -267,7 +267,6 @@ nav ul li a i.fa-star {
     color: hsl(51, 95%, 58%);
 }
 
-
 /*
 =======================================================
 ====== Quill Styles ===================================
@@ -290,7 +289,6 @@ nav ul li a i.fa-star {
     background-color: white;
     padding: 2.5rem 1.5rem;
     z-index: 20;
-
 }
 
 /*
@@ -447,8 +445,6 @@ nav ul li a i.fa-star {
 ::-webkit-scrollbar-thumb:hover {
     background: #282A2E;
 }
-
-
 
 /*
 =======================================================
