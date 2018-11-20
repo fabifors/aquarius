@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 50">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-1 {
+        opacity: 0;
+      }
+
+      .cls-3 {
+        font-size: 27px;
+        font-family: Lobster-Regular, Lobster;
+      }
+    </style>
+  </defs>
+  <g id="Group_32" data-name="Group 32" transform="translate(342 473)">
+    <rect id="Rectangle_49" data-name="Rectangle 49" class="cls-1" width="130" height="50" transform="translate(-342 -473)"/>
+    <g id="Group_31" data-name="Group 31" transform="translate(-0.188 0.39)">
+      <g id="Group_30" data-name="Group 30" transform="translate(-349.915 -483.203)">
+        <path id="feather-alt" class="cls-2" d="M40.005,0C35.96.278,7.539,2.984,5.552,22.47c-.241,2.083-.378,4.175-.468,6.269l13.974-13.96a1.251,1.251,0,0,1,1.77,1.768L.555,36.8a1.876,1.876,0,1,0,2.655,2.652l4.463-4.459a88.31,88.31,0,0,0,9.841-.575A18.637,18.637,0,0,0,27.871,30H19.984l11.468-3.819A31,31,0,0,0,33.832,22.5H27.492l8.324-4.157A63.767,63.767,0,0,0,40.005,0Z" transform="translate(15.098 14.813)"/>
+      </g>
+      <text id="Quire" class="cls-3" transform="translate(-277.812 -437.39)"><tspan x="0" y="0">Quire</tspan></text>
+    </g>
+  </g>
+</svg>
