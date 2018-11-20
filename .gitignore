@@ -1,5 +1,6 @@
 #Ignore files below
 readme.txt
+.DS_Store
 
 #Ignore all PFD and ZIP files
 *.pdf
