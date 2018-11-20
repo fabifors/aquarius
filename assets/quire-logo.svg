@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 50">
+=======
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 50">
+
+>>>>>>> cf69c3163c4b3ae48a61e64360f7d963d5f15cc0
   <defs>
     <style>
       .cls-1, .cls-2, .cls-3 {
@@ -11,7 +17,11 @@
 
       .cls-3 {
         font-size: 27px;
+<<<<<<< HEAD
         font-family: Lobster-Regular, Lobster;
+=======
+        font-family: Lobster;
+>>>>>>> cf69c3163c4b3ae48a61e64360f7d963d5f15cc0
       }
     </style>
   </defs>

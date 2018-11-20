@@ -11,7 +11,6 @@ var Font = Quill.import('formats/font');
 Font.whitelist = fonts;
 Quill.register(Font, true);
 
-
 var toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],
   [{
@@ -165,7 +164,6 @@ function updateNote(id) {
   console.log('updateNote(): ' + note.title);
 }
 
-
 // Code from link that moves item from one spot to another https://www.w3resource.com/javascript-exercises/javascript-array-exercise-38.php
 function move(arr, old_index, new_index) {
   while (old_index < 0) {
@@ -183,60 +181,6 @@ function move(arr, old_index, new_index) {
   arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   return arr;
 }
-
-// Function that takes the current note's ID and saves it
-function saveNote(id) {
-  if (notesArray.find(n => n.id === id.toString())) {
-    updateNote(id);
-    clearDom('#notes-output');
-    showNotes(buildDom(notesArray));
-  } else {
-    const note = noteConstructor(quill.getContents());
-    currentNote = note.id;
-    notesArray.unshift(note);
-    localStorage.setItem('note', JSON.stringify(notesArray));
-    clearDom('#notes-output');
-    showNotes(buildDom(notesArray));
-
-    console.log('saveNote(): No current, creating new note...');
-    console.log('saveNote(): Creates new note with ID: ' + note.id);
-  }
-  saveBtn.classList.add('success');
-  setTimeout(() => {
-    saveBtn.classList.remove('success');
-  }, 1500);
-};
-
-function findNote(id) {
-  if (id.length > 0) {
-    return notesArray.find(note => note.id === id);
-  } else {
-    console.error('findNote(): No current ID');
-  }
-}
-
-
-
-// Code from link that moves item from one spot to another https://www.w3resource.com/javascript-exercises/javascript-array-exercise-38.php
-function move(arr, old_index, new_index) {
-  while (old_index < 0) {
-    old_index += arr.length;
-  }
-  while (new_index < 0) {
-    new_index += arr.length;
-  }
-  if (new_index >= arr.length) {
-    var k = new_index - arr.length;
-    while ((k--) + 1) {
-      arr.push(undefined);
-    }
-  }
-  arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-  return arr;
-}
-
-// Kristian
-// const move = (arr, old_index, new_index) => arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 
 // Get the note title from editor's first line
 function noteTitle() {
@@ -362,9 +306,7 @@ function start() {
   }
 }
 
-
 // Event Listeners
-
 // Click event for the notes in sidebar
 notesOutput.addEventListener('click', (e) => {
   const targetId = e.target.id;
