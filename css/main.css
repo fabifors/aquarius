@@ -234,7 +234,7 @@ a {
     color: hsl(0, 49%, 70%);
 }
 
-#fav-btn.active {
+#fav-btn.active-fav {
     color: hsl(51, 95%, 58%);
 }
 
@@ -263,9 +263,20 @@ nav ul li a:hover {
     transform: scale(0.95);
 }
 
-nav ul li a i.fa-star {
-    color: hsl(51, 95%, 58%);
+nav ul li[data-menu-item="favourites"] a.active {
+    color: #fff;
+    border-radius: 25%;
+    background: var(--accent-color);
+    transform: scale(0.95);
 }
+
+nav ul li[data-menu-item="notes"] a.active {
+    border-radius: 25%;
+    background: var(--accent-color);
+    color: #fff;
+    transform: scale(0.95);
+}
+
 
 /*
 =======================================================

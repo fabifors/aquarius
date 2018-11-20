@@ -1,10 +1,14 @@
 const notesOutput = document.querySelector('#notes-output');
 const saveBtn = document.querySelector("#save-btn");
 const newBtn = document.querySelector("#new-btn");
+const notesDiv = document.querySelector('#notes');
 const notesArray = [];
 let favArray = [];
 let domArray = [];
 let currentNote = '';
+
+const mainMenu = document.querySelector('#main-menu');
+const menuItems = [].slice.call(mainMenu.children);
 
 var fonts = ['sofia', 'roboto', 'lobster'];
 var Font = Quill.import('formats/font');
@@ -223,7 +227,7 @@ function createElement(obj) {
   const favBtn = document.createElement('i');
 
   if (obj.favourite === true) {
-    favBtn.classList.add('fas', 'fa-star', 'active');
+    favBtn.classList.add('fas', 'fa-star', 'active-fav');
   } else {
     favBtn.classList.add('far', 'fa-star');
   }
@@ -304,6 +308,8 @@ function start() {
   } else {
     console.log('start(): No notes in memory.');
   }
+  clearActive(menuItems);
+  setActive(getMenuItem('notes'), 'Notes');
 }
 
 // Event Listeners
@@ -323,22 +329,42 @@ function printNote() {
 
 function favPush() {
   notesArray.forEach(note => {
-  	if(note.favourite === true){
-  		favArray.push(note);
-      }
+    if (note.favourite === true) {
+      favArray.push(note);
+    }
   })
 }
 
+function getMenuItem(item) {
+  for (let i = 0; i < menuItems.length; i++) {
+    if (menuItems[i].getAttribute('data-menu-item') === item) {
+      return menuItems[i];
+    }
+  }
+}
+
+function setActive(item, label) {
+  item.firstChild.classList.add('active');
+  notes.firstElementChild.innerHTML = label;
+}
+
+function clearActive(arr) {
+  arr.forEach(el => el.firstChild.classList.remove('active'));
+}
+
 function showFavourites() {
+  favArray = [];
   favPush();
   clearDom('#notesOutput');
   showNotes(buildDom(favArray));
-  favArray = [];
+  clearActive(menuItems);
+  setActive(getMenuItem('favourites'), 'Favourites');
 }
 
 function showAllNotes() {
   favArray = [];
   clearDom('#notesOutput');
-
   showNotes(buildDom(notesArray));
+  clearActive(menuItems);
+  setActive(getMenuItem('notes'), 'Notes');
 }
