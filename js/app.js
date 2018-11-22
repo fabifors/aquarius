@@ -10,9 +10,8 @@ let currentNote = '';
 const mainMenu = document.querySelector('#main-menu');
 const menuItems = [].slice.call(mainMenu.children);
 
-var fonts = ['sofia', 'roboto', 'lobster'];
 var Font = Quill.import('formats/font');
-Font.whitelist = fonts;
+Font.whitelist = ['sofia', 'roboto', 'lobster'];
 Quill.register(Font, true);
 
 var toolbarOptions = [
@@ -41,6 +40,7 @@ var toolbarOptions = [
   [{
     'align': []
   }],
+  ['image'],
   ['clean']
 ];
 
@@ -110,25 +110,19 @@ function noteConstructor(content) {
 function newNote() {
   currentNote = '';
   quill.setContents('');
-  clearDom('#notes-output');
-  showNotes(buildDom(notesArray));
 }
 
 // Function that takes in note id and display the note in editor
 function getNote(id) {
-  let storage = localStorage.getItem('note');
-  let content = JSON.parse(storage);
-  content.forEach(e => {
-    if (e.id === id) {
-      quill.setContents(e.content);
-      console.log('getNote(): Open note: ' + e.id);
-    }
-  }, false);
+  let content = JSON.parse(localStorage.getItem('note'));
+  note = content.find(e => e.id === id);
+  quill.setContents(note.content);
+  console.log('getNote(): Open note: ' + note.id);
 }
 
 // Function that takes the current note's ID and saves it
 function saveNote(id) {
-  if (notesArray.find(n => n.id === id.toString())) {
+  if (notesArray.find(n => n.id === id)) {
     updateNote(id);
     clearDom('#notes-output');
     showNotes(buildDom(notesArray));
@@ -143,23 +137,11 @@ function saveNote(id) {
     console.log('saveNote(): No current, creating new note...');
     console.log('saveNote(): Creates new note with ID: ' + note.id);
   }
-  saveBtn.classList.add('success');
-  setTimeout(() => {
-    saveBtn.classList.remove('success');
-  }, 1500);
-};
-
-function findNote(id) {
-  if (id.length > 0) {
-    return notesArray.find(note => note.id === id);
-  } else {
-    console.error('findNote(): No current ID');
-  }
 }
 
 // Function that takes ID and change the corresponding note's content, title and date
 function updateNote(id) {
-  const note = findNote(id);
+  const note = getNote(id);
   note.title = noteTitle();
   note.lastModified = getDate('full');
   note.content = quill.getContents();
@@ -234,8 +216,6 @@ function createElement(obj) {
   favBtn.id = 'fav-btn';
 
   favBtn.onclick = (e) => {
-    // let note = e.target.parentNode.parentNode.id;
-    // let noteIndex = notesArray.map(n => n.id).indexOf(note);
     if (obj.favourite === false) {
       obj.favourite = true;
       localStorage.setItem('note', JSON.stringify(notesArray));
@@ -316,11 +296,11 @@ function start() {
 // Click event for the notes in sidebar
 notesOutput.addEventListener('click', (e) => {
   const targetId = e.target.id;
-  getNote(targetId);
-  if (e.target.tagName.toLowerCase() !== 'i') {
+  if(e.target.tagName.toLowerCase() === "li") {
     showMenu(false);
+    getNote(targetId);
+    currentNote = targetId;
   }
-  currentNote = targetId;
 });
 
 function printNote() {
