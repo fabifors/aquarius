@@ -4,12 +4,18 @@ window.addEventListener('DOMContentLoaded', () => {
     const welcomeSlides = [].slice.call(welcome.querySelectorAll('.slide'));
     const welcomeBtn = welcome.querySelector('.welcome__footer__btn');
     const bubbles = [].slice.call(welcome.querySelectorAll('.bubble'));
+<<<<<<< HEAD
     const lightbox = document.querySelector('#welcome-lightbox');
 
     const bgLayer1 = welcome.querySelector('.welcome__background-layer-1');
     const bgLayer2 = welcome.querySelector('.welcome__background-layer-2');
     const bgLayer1Path = welcome.querySelector('#background');
     const bgLayer2Path = welcome.querySelector('#foreground');
+=======
+
+    const bgLayer1 = welcome.querySelector('.welcome__background-layer-1');
+    const bgLayer2 = welcome.querySelector('.welcome__background-layer-2');
+>>>>>>> Added separate JS file for development
     let state = 0;
 
     welcomeBtn.addEventListener('click', () => {
@@ -37,14 +43,19 @@ window.addEventListener('DOMContentLoaded', () => {
             bubbles[1].classList.remove('active');
             bubbles[2].classList.add('active');
             welcomeBtn.innerText = 'Get started!';
+<<<<<<< HEAD
             bgLayer1Path.style.fill="#8b3ad2"
             bgLayer2Path.style.fill='#8b3ad2';
+=======
+
+>>>>>>> Added separate JS file for development
             state = 2;
         } else if (state === 2) {
             welcomeSlides[2].classList.add('slide--fade-out');
             welcomeSlides[2].classList.remove('slide--view');
 
             welcome.classList.add('welcome--close');
+<<<<<<< HEAD
             lightbox.classList.add('close');
             setTimeout(() => {
                 welcome.style.display = 'none';
@@ -54,3 +65,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     })
 });
+=======
+            state = 3;
+        }
+    })
+});
+>>>>>>> Added separate JS file for development
