@@ -114,10 +114,19 @@ function newNote() {
 
 // Function that takes in note id and display the note in editor
 function getNote(id) {
+  document.getElementsByClassName("ql-editor")[0].focus();
   let content = JSON.parse(localStorage.getItem('note'));
-  note = content.find(e => e.id === id);
+  let note = content.find(e => e.id === id);
   quill.setContents(note.content);
   console.log('getNote(): Open note: ' + note.id);
+}
+
+function findNote(id) {
+  if (id.length > 0) {
+    return notesArray.find(note => note.id === id);
+  } else {
+    console.error('findNote(): No current ID');
+  }
 }
 
 // Function that takes the current note's ID and saves it
@@ -141,7 +150,7 @@ function saveNote(id) {
 
 // Function that takes ID and change the corresponding note's content, title and date
 function updateNote(id) {
-  const note = getNote(id);
+  const note = findNote(id);
   note.title = noteTitle();
   note.lastModified = getDate('full');
   note.content = quill.getContents();
