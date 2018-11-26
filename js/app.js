@@ -11,7 +11,7 @@ const mainMenu = document.querySelector('#main-menu');
 const menuItems = [].slice.call(mainMenu.children);
 
 var Font = Quill.import('formats/font');
-Font.whitelist = ['sofia', 'roboto', 'lobster'];
+Font.whitelist = ['sans-serif', 'sofia', 'roboto', 'lobster'];
 Quill.register(Font, true);
 
 var toolbarOptions = [
@@ -35,7 +35,7 @@ var toolbarOptions = [
     'background': []
   }],
   [{
-    'font': ['sofia', 'roboto', 'lobster']
+    'font': ['sans-serif', 'sofia', 'roboto', 'lobster']
   }],
   [{
     'align': []
@@ -348,3 +348,6 @@ function showAllNotes() {
   clearActive(menuItems);
   setActive(getMenuItem('notes'), 'Notes');
 }
+document.getElementById('ql-picker-options-3').addEventListener('click', (event) => {
+  quill.formatText(0, quill.getText().length, 'font', event.target.getAttribute("data-value"));
+  });
