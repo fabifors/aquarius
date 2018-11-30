@@ -180,48 +180,70 @@ a {
 /* Tag list styles */
 
 #tag-container {
-    padding: 0.8rem;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
-    background-color: var(--search-field);
+  padding: 0.8rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  background-color: var(--search-field);
+  display: flex;
+  align-items: center;
+}
+
+.tag-container-header {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-right: 0.5rem;
 }
 
 .tag-list {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .tag-list-item {
-    margin: 0.2rem;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin: 0.2rem;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .badge {
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.3rem 0.3rem 0.35rem;
-    background: hsl(227, 58%, 65%);
-    color: #fff;
-    border-radius: 0.25rem;
-    box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.2);
-    opacity: 0.8;
-    transition: opacity 300ms, transform 500ms;
-    perspective: 30cm;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.3rem 0.35rem;
+  background: hsl(227, 58%, 65%);
+  color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+  transition: opacity 200ms;
+  perspective: 30cm;
 }
 
 .badge:hover {
-    opacity: 1;
-    transform: translateY(-5%);
+  opacity: 1;
+}
+
+.tag-amount {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1px 3px;
+  margin-left: 0.25rem;
+}
+
+
+
+.note-tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .badge .fas {
-    margin-right: 0.3rem;
+  margin-right: 0.3rem;
 }
 
 /* Note list styles */
@@ -270,6 +292,10 @@ a {
 #notes ul li.note i {
   font-size: 1.25em;
   padding: 0.5rem;
+  pointer-events: all;
+}
+
+#notes ul li.note .note-tags li * {
   pointer-events: all;
 }
 
@@ -669,9 +695,9 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 .slide-welcome {
-    font-family: "Lobster";
-    color: hsl(272, 63%, 63%);
-    font-size: 2rem;
+  font-family: "Lobster";
+  color: hsl(272, 63%, 63%);
+  font-size: 2rem;
 }
 
 /*
