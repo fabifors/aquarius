@@ -34,11 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
         searchArray.push(note);
         DOM.show(searchArray);
       } else {
-        return;
+        DOM.clear();
       };
     });
   });
-
 
   /*
   ==================================
