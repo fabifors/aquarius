@@ -7,14 +7,28 @@
 // Creates a badge with some text (used for tags)
 function badgeCreater(tag) {
   const li = document.createElement('li');
+  const badge = document.createElement('a');
+  const badgeText = document.createElement('span');
   li.classList.add('tag-list-item');
-  if (DOM.currentTags.includes(tag.label)) {
-    li.innerHTML = `<a class="badge active"><span class="badge__text">${tag.label}</span><span class="tag-amount">${tag.amount}</span></a>`;
-  } else {
-    li.innerHTML = `<a class="badge"><span class="badge__text">${tag.label}</span><span class="tag-amount">${tag.amount}</span></a>`;
-  }
-  li.setAttribute('draggable', true);
+  badge.classList.add('badge');
+  badgeText.classList.add('badge__text');
+  badgeText.innerHTML = tag.label;
 
+  if (DOM.currentTags.includes(tag.label)) {
+    badge.classList.add('active');
+    badge.appendChild(badgeText);
+  } else {
+    badge.appendChild(badgeText);
+  }
+
+  if (tag.amount > 1) {
+    const badgeAmount = document.createElement('span');
+    badgeAmount.classList.add('tag-amount');
+    badgeAmount.innerHTML = tag.amount;
+    badge.appendChild(badgeAmount);
+  }
+  li.appendChild(badge);
+  li.setAttribute('draggable', true);
   li.onclick = () => {
     if (DOM.currentTags.includes(tag.label)) {
       let index = DOM.currentTags.indexOf(tag.label);
@@ -112,6 +126,10 @@ function createElement(note) {
   // Adds the class and id to <li>
   li.classList.add('note');
   li.id = note.id;
+
+  if (database.currentNote === note.id) {
+    li.classList.add('active');
+  }
 
   // Append all elements to <li> in correct order
   wrapperDiv.appendChild(mainDiv);

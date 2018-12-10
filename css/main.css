@@ -242,9 +242,10 @@ a {
 
 .tag-amount {
   border-radius: 3px;
-  background: rgba(0, 0, 0, 0.2);
-  padding: 1px 3px;
-  margin-left: 0.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 2px 5px;
+  margin-left: 0.3rem;
 }
 
 .remove-tag {
@@ -270,7 +271,7 @@ a {
 #notes ul li.note {
   list-style: none;
   padding: 1rem;
-  border: 2px solid rgba(104, 109, 120, 0.16);
+  border: 2px solid hsla(221, 7%, 44%, 0.16);
   border-radius: 5px;
   transition: background 300ms, border 300ms, transform 300ms, padding 300ms;
   cursor: pointer;
@@ -279,10 +280,10 @@ a {
 }
 
 #notes ul li.note.active {
-  background: #393B41;
-  border-color: #393B41;
+  background: hsl(225, 7%, 24%);
+  border-color: hsl(225, 7%, 24%);
   transform: translateX(0.5em);
-  border-left: 5px solid var(--accent-color);
+  border-left: 5px solid var(--accent-color) !important;
 }
 
 #notes ul li.note * {
@@ -290,8 +291,8 @@ a {
 }
 
 #notes ul li.note:hover {
-  background: #393B41;
-  border-color: #393B41;
+  background: hsl(225, 7%, 24%);
+  border-color: hsl(225, 7%, 24%);
   transform: translateX(0.5em);
 }
 
