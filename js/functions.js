@@ -4,18 +4,8 @@
 =================================================
 
 == []-> createElement function needs work
-== []-> Tags needs to render from notes not DB
-== ||----> Idea: when notes are loaded, all tags gets added from all notes
-== ||----> Maybe the tags can be added as an object to keep track of how many notes have got the same tag.
-== ||----> In that case write a function that returns a tag object
-== ||-------> Then write another function like this: 
-
-== ##-------> Get all the tags from notes in array
-== ##-------> Go through array and check if they exsist
-== ##-------> If not => add to database.tags
-== ##-------> If they do => add +1 to amount in said tag in database.tags
-== ##-------> Done! 
-
+== []-> make tags removable
+== []-> make tags show when editing a note
 == []-> Stretch goal: Implement color picker for tags
 
 =================================================
@@ -31,10 +21,18 @@
 */
 
 // Creates a badge with some text (used for tags)
-function badgeCreater(text) {
+function badgeCreater(label, amount = false) {
   const li = document.createElement('li');
   li.classList.add('tag-list-item');
-  li.innerHTML = `<a class="badge"><span class="badge__text">${text}</span></a>`;
+  li.setAttribute('draggable', true);
+  if (amount === false) {
+    li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span></a>`;
+  } else {
+    li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span><span class="tag-amount">${amount}</span></a>`;
+    li.onclick = () => {
+      alert('This works');
+    }
+  }
   return li;
 }
 
@@ -62,12 +60,12 @@ function createElement(note) {
     note.setFavourite();
     DOM.clear();
     DOM.update();
-
+    database.storeNotes();
   }
 
   removeBtn.classList.add('fas', 'fa-times');
   removeBtn.id = 'remove-btn';
-  removeBtn.onclick = function (e) {
+  removeBtn.onclick = function(e) {
     note.remove();
     DOM.clear();
     DOM.update();
@@ -104,6 +102,7 @@ function createElement(note) {
     // append them in UL element
     let tagElements = [];
     const tags = document.createElement('ul');
+    tags.classList.add('note-tags');
     note.tags.forEach(tag => tagElements.push(badgeCreater(tag)));
     appendListToElement(tagElements, tags);
     li.appendChild(tags);
@@ -294,9 +293,48 @@ function move(arr, old_index, new_index) {
 
 /*
 ==================================
-==== Utility functions ==============
+==== Tags functions ==============
 ==================================
 */
+
+function newTagObject(label) {
+  let obj = {
+    label: label,
+    amount: 1,
+    onClick: () => {
+      let label = this.label;
+      DOM.show(database.filter(tag(label)));
+    }
+  }
+  return obj;
+}
+
+function getTags(arr) {
+  let temp = [];
+  arr.forEach(note => {
+    if (note.deleted === true) {
+      return;
+    } else {
+      note.tags.forEach(tag => {
+        let tempIndex = temp.findIndex(tempTag => tempTag.label === tag);
+        if (tempIndex < 0) {
+          temp.push(newTagObject(tag));
+        } else {
+          temp[tempIndex].amount++;
+        }
+      });
+    }
+  });
+  return temp;
+}
+
+/*
+==================================
+==== Utility functions ===========
+==================================
+*/
+
+
 function appendListToElement(arr, element) {
   arr.forEach(item => element.appendChild(item));
 }

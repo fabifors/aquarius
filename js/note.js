@@ -32,11 +32,7 @@ class Note {
     }
 
     setFavourite() {
-        if (this.favourite === false) {
-            this.favourite = true;
-        } else {
-            this.favourite = false;
-        }
+        this.favourite = !this.favourite;
     }
 
     addTag(tag) {

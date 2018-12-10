@@ -16,25 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
             database.saveNote(database.currentNote);
             findNote(database.currentNote).addTag(newTag);
             database.saveNote(database.currentNote);
+            database.storeNotes();
             DOM.show(database.filter(allNotes));
         } else {
             findNote(database.currentNote).addTag(newTag);
             database.saveNote(database.currentNote);
+            database.storeNotes();
             DOM.show(database.filter(allNotes));
         }
-        // if (database.currentNote === '') {
-        //     // Create new note and save it
-        //     database.saveNote(database.currentNote);
-        //     // push tagg to obj.tag array
-        //     const note = findNote(database.currentNote);
-        //     note.addTag(newTag);
-        // } else if (findNote(database.currentNote).tags.find(tag => tag.toLowerCase() === newTag)) {
-        //     return alert('You already have the tag: ' + newTag + ' added to this note.');
-        // } else {
-        //     const note = findNote(database.currentNote);
-        //     note.addTag(newTag);
-        //     database.saveNote(database.currentNote);
-        // };
     });
 
     document.getElementById('search-input').addEventListener('keyup', (event) => {
@@ -51,10 +40,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+    /*
+    ==================================
+    ==== Themepicker Events ==========
+    ==================================
+    */
     document.getElementById('ql-picker-options-3').addEventListener('click', (event) => {
         quill.formatText(0, quill.getText().length, 'font', event.target.getAttribute("data-value"));
     });
 
+    /*
+    ==================================
+    ==== Menubutton Events ===========
+    ==================================
+    */
     menuBTN.addEventListener('click', () => {
         showMenu(true);
     });
@@ -67,13 +67,25 @@ document.addEventListener('DOMContentLoaded', () => {
         showMenu(false);
     });
 
-    // Click event for the notes in sidebar
-    notesOutput.addEventListener('click', (e) => {
+
+    /*
+    ==================================
+    ==== Noteitem Events =============
+    ==================================
+    */
+    database.noteList.addEventListener('click', (e) => {
         const targetId = e.target.id;
-        if (e.target.tagName.toLowerCase() === "li") {
-            showMenu(false);
-            database.openNote(targetId);
-            database.currentNote = targetId;
+        if (e.target.tagName.toLowerCase() === "li" &&
+            database.notes.find(note => note.id === targetId)) {
+            // end of condition
+            if (database.notes.find(note => note.id === targetId).deleted === false) {
+                showMenu(false);
+                database.openNote(targetId);
+                database.currentNote = targetId;
+            } else {
+                alert(`Note is currently in the trash. Restore it if you want to access it's content.`);
+                return;
+            }
         };
     });
 });

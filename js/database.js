@@ -6,7 +6,6 @@ const database = {
     noteList: document.querySelector('#notes-output'),
     init: () => {
         let storageNotes = JSON.parse(localStorage.getItem('notes'));
-        let storageTags = JSON.parse(localStorage.getItem('tags'));
         if (storageNotes === null) {
             console.log('database.Init(): No notes in memory (new user)');
         } else if (storageNotes.length === 0) {
@@ -15,8 +14,8 @@ const database = {
         } else {
             console.log('database.Init(): Loading exsisting notes from memory')
             welcomeLightbox.style.display = 'none';
-            database.tags = storageTags;
             database.notes = importNotes(storageNotes);
+            database.tags = getTags(database.notes);
             DOM.show(database.filter(allNotes));
         }
     },
@@ -27,6 +26,7 @@ const database = {
             database.notes.splice(index, 1);
             console.log(`Nuked note: '${id}'`);
             DOM.update();
+            database.storeNotes();
         } else {
             console.log(`Could not find note in ${database.notes}`);
         }
@@ -52,20 +52,21 @@ const database = {
 
     newNote: () => {
         database.saveNote(database.currentNote);
+        database.storeNotes();
         database.currentNote = '';
         quill.setContents('');
         document.querySelector('.ql-editor').focus();
-    },
+    }, // Add check for empty currentNote
 
     saveNote: (id) => {
         if (database.notes.find(n => n.id === id)) {
             database.updateNote(id);
+            database.storeNotes();
             DOM.show(database.filter(allNotes));
         } else {
             const note = new Note(newNote(quill.getContents()));
             database.currentNote = note.id;
             database.notes.unshift(note);
-            database.storeNotes();
             DOM.show(database.filter(allNotes));
             console.log('database.saveNote(): No current, creating new note...');
             console.log('database.saveNote(): Creates new note with ID: ' + note.id);
@@ -78,7 +79,6 @@ const database = {
         note.lastModified = getDate('full');
         note.content = quill.getContents();
         move(database.notes, database.notes.indexOf(note), 0);
-        database.storeNotes();
         console.log('database.updateNote(): ' + note.title);
     },
 
@@ -92,12 +92,13 @@ const database = {
 const DOM = {
     current: 'all',
     currentTag: '',
+    tagsList: document.querySelector('.tag-list'),
     notesList: document.querySelector('#notes-output'),
 
     show: (arr = update()) => {
         arr.forEach(note => DOM.notesList.appendChild(createElement(note)));
-        console.log(database.tags)
-        database.tags.forEach(tag => tagList.appendChild(badgeCreater(tag)));
+        database.tags = getTags(database.notes);
+        database.tags.forEach(tag => DOM.tagsList.appendChild(badgeCreater(tag.label, tag.amount)));
     },
 
     clear: () => {
@@ -110,6 +111,7 @@ const DOM = {
             console.log('DOM.clear(): No notes in DOM');
         }
         if (tagList.children.length > 0) {
+            console.log('Clearing tags');
             while (tagList.firstChild) {
                 tagList.removeChild(tagList.firstChild);
             }
