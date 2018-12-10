@@ -5,6 +5,8 @@
   --highlight-color: #404349;
   --toolbar-color: #f9f9f9;
   --accent-color: #7289da;
+  --remove-color: hsl(0, 38%, 50%);
+  --remove-color-highlight: hsl(0, 49%, 70%);
   --offwhite: #ecf0f1;
   --muted: #747475;
 }
@@ -303,7 +305,7 @@ a {
 }
 
 #remove-btn {
-  color: hsl(0, 38%, 50%);
+  color: var(--remove-color);
 }
 
 #remove-btn:hover {
@@ -354,6 +356,16 @@ nav #main-menu li a.active {
 
 .sidebar-menu #main-menu li:last-of-type {
   margin-top: auto;
+}
+
+.sidebar-menu #main-menu li:last-of-type a {
+  color: var(--remove-color);
+}
+
+.sidebar-menu #main-menu li:last-of-type a:hover,
+.sidebar-menu #main-menu li:last-of-type a.active {
+  color: var(--remove-color-highlight);
+  background: var(--remove-color);
 }
 
 /*
