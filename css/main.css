@@ -259,7 +259,7 @@ a {
   position: relative;
 }
 
-#notes ul li div:nth-of-type(1) {
+#notes ul li.note * {
   pointer-events: none;
 }
 
@@ -269,27 +269,28 @@ a {
   transform: translateX(0.5em);
 }
 
-#notes ul li.note h4 {
+#notes ul li.note .note-item-wrapper div h4 {
   margin-bottom: 0.5em;
 }
 
-#notes ul li.note p:nth-last-child(2) {
+#notes ul li.note .note-item-wrapper div p:nth-last-child(2) {
   margin-bottom: 0.5em;
 }
 
-#notes ul li.note p:nth-last-child(1) {
+#notes ul li.note .note-item-wrapper div p:nth-last-child(1) {
   font-size: 0.75em;
   color: var(--muted);
 }
 
-#notes ul li.note {
+#notes ul li.note .note-item-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.25rem;
 }
 
-#notes ul li.note i {
+#notes ul li.note .note-item-wrapper div i {
   font-size: 1.25em;
   padding: 0.5rem;
   pointer-events: all;
@@ -329,26 +330,14 @@ nav ul li a {
   transition: transform 300ms, border-radius 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 500ms, color 300ms;
 }
 
-nav ul li a:hover {
+nav ul li a:hover,
+nav ul li a.active {
   border-radius: 25%;
   background: var(--accent-color);
   color: #fff;
   transform: scale(0.95);
 }
 
-nav ul li[data-menu-item="favourites"] a.active {
-  color: #fff;
-  border-radius: 25%;
-  background: var(--accent-color);
-  transform: scale(0.95);
-}
-
-nav ul li[data-menu-item="notes"] a.active {
-  border-radius: 25%;
-  background: var(--accent-color);
-  color: #fff;
-  transform: scale(0.95);
-}
 
 
 /*
@@ -552,9 +541,9 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 /*
-    =====================================
-    ========== WELCOME STYLES ===========
-    =====================================
+  =====================================
+  ========== WELCOME STYLES ===========
+  =====================================
 */
 
 .welcome {
@@ -600,9 +589,9 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 /*
-    =====================================
-    ========== Header styles ============
-    =====================================
+  =====================================
+  ========== Header styles ============
+  =====================================
 */
 
 .welcome__header {
@@ -631,9 +620,9 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 /*
-    =====================================
-    ========== Slide styles =============
-    =====================================
+  =====================================
+  ========== Slide styles =============
+  =====================================
 */
 
 .slides {
@@ -701,9 +690,9 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 /*
-    =====================================
-    ========== Slide list styles ========
-    =====================================
+  =====================================
+  ========== Slide list styles ========
+  =====================================
 */
 
 .slide__list {
@@ -741,9 +730,9 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 /*
-    =====================================
-    ========== Footer styles ============
-    =====================================
+  =====================================
+  ========== Footer styles ============
+  =====================================
 */
 
 .welcome__footer {
@@ -794,9 +783,9 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 /*
-    =====================================
-    ========== Bubble styles ============
-    =====================================
+  =====================================
+  ========== Bubble styles ============
+  =====================================
 */
 
 .bubble {
@@ -817,9 +806,9 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 /*
-    =====================================
-    ========== Background layers ========
-    =====================================
+  =====================================
+  ========== Background layers ========
+  =====================================
 */
 
 .welcome__background-layer-1,
@@ -850,39 +839,12 @@ nav ul li[data-menu-item="notes"] a.active {
 }
 
 /*
-    =====================================
-    ========== @Media styles ============
-    =====================================
+  =====================================
+  ========== @Media styles ============
+  =====================================
 */
 
 @media screen and (min-width: 768px) {
-  #welcome-lightbox {
-    position: absolute;
-    z-index: 99998;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    transition: opacity 300ms;
-    opacity: 1;
-  }
-
-  #welcome-lightbox.close {
-    opacity: 0;
-  }
-
-  .welcome {
-    width: 500px;
-    max-height: calc(100vh - 2rem);
-    top: 1rem;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 8px;
-  }
-
   #welcome-lightbox {
     position: absolute;
     z-index: 99998;
