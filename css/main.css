@@ -212,6 +212,7 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
+  cursor: -webkit-grab;
 }
 
 .badge {
@@ -238,7 +239,13 @@ a {
   margin-left: 0.25rem;
 }
 
-
+.remove-tag {
+  padding: 0.5rem 0.7rem;
+  background: var(--remove-color);
+  border-radius: 5px;
+  color: var(--remove-color-highlight);
+  margin-left: auto;
+}
 
 .note-tags {
   display: flex;

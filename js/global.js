@@ -8,7 +8,7 @@
     const notesDiv = document.querySelector('#notes');
     const notesOutput = document.querySelector('#notes-output');
     const tagList = notesDiv.querySelector('.tag-list');
-    const tag = document.querySelector('.ql-tag');
+    const addTagBtn = document.querySelector('.ql-tag');
 
     // Menus
     const mainMenu = document.querySelector('#main-menu');

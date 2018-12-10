@@ -24,13 +24,17 @@
 function badgeCreater(label, amount = false) {
   const li = document.createElement('li');
   li.classList.add('tag-list-item');
-  li.setAttribute('draggable', true);
   if (amount === false) {
     li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span></a>`;
   } else {
+    li.setAttribute('draggable', true);
     li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span><span class="tag-amount">${amount}</span></a>`;
     li.onclick = () => {
-      alert('This works');
+      DOM.show(database.filter(tags(label)));
+    }
+    li.ondrag = () => {
+      DOM.tagToBeRemoved = label;
+      console.log(DOM.tagToBeRemoved);
     }
   }
   return li;
@@ -303,7 +307,7 @@ function newTagObject(label) {
     amount: 1,
     onClick: () => {
       let label = this.label;
-      DOM.show(database.filter(tag(label)));
+
     }
   }
   return obj;
@@ -326,6 +330,22 @@ function getTags(arr) {
     }
   });
   return temp;
+}
+
+function removeTag() {
+  database.notes.forEach(note => {
+    note.tags.forEach(tag => tag === DOM.tagToBeRemoved ? note.removeTag(DOM.tagToBeRemoved) : false);
+  });
+  DOM.clear()
+  DOM.update();
+}
+
+function getTagName() {
+  console.log(this);
+}
+
+function allowDrop(event) {
+  event.preventDefault();
 }
 
 /*
