@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
       let noteContent = note.content.ops[0].insert.toLowerCase();
       if (noteContent.includes(event.target.value.toLowerCase())) {
         searchArray.push(note);
-        DOM.clear();
         DOM.show(searchArray);
       } else {
         return;

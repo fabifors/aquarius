@@ -21,21 +21,41 @@
 */
 
 // Creates a badge with some text (used for tags)
-function badgeCreater(label, amount = false) {
+function badgeCreater(tag) {
   const li = document.createElement('li');
   li.classList.add('tag-list-item');
-  if (amount === false) {
-    li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span></a>`;
-  } else {
-    li.setAttribute('draggable', true);
-    li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span><span class="tag-amount">${amount}</span></a>`;
-    li.onclick = () => {
-      DOM.show(database.filter(tags(label)));
+  li.setAttribute('draggable', true);
+  li.innerHTML = `<a class="badge"><span class="badge__text">${tag.label}</span><span class="tag-amount">${tag.amount}</span></a>`;
+  li.onclick = () => {
+    if (DOM.currentTags.includes(tag.label)) {
+      let index = DOM.currentTags.indexOf(tag.label);
+      DOM.currentTags.splice(index, 1);
+      if (DOM.currentTags.length === 0) {
+        DOM.update();
+      } else {
+        DOM.show(tags());
+      }
+    } else {
+      DOM.currentTags.push(tag.label);
+      DOM.show(tags());
     }
-    li.ondrag = () => {
-      DOM.tagToBeRemoved = label;
-      console.log(DOM.tagToBeRemoved);
-    }
+  }
+  li.ondragstart = () => {
+    DOM.tagToBeRemoved = tag.label;
+  }
+  return li;
+}
+
+function noteBadge(label) {
+  const li = document.createElement('li');
+  li.classList.add('tag-list-item');
+  li.setAttribute('draggable', true);
+  li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span></a>`;
+  li.ondragstart = (e) => {
+    // DOM.tagToBeRemoved = label;
+    let noteId = e.target.parentNode.parentNode.id;
+    DOM.noteId = noteId;
+    DOM.tagToBeRemoved = label;
   }
   return li;
 }
@@ -53,6 +73,12 @@ function createElement(note) {
   const removeBtn = document.createElement('i');
   const favBtn = document.createElement('i');
 
+  li.setAttribute('draggable', true);
+
+  li.ondragstart = () => {
+    DOM.noteId = note.id;
+  }
+
   if (note.favourite === true) {
     favBtn.classList.add('fas', 'fa-star', 'active-fav');
   } else {
@@ -62,7 +88,6 @@ function createElement(note) {
 
   favBtn.onclick = (e) => {
     note.setFavourite();
-    DOM.clear();
     DOM.update();
     database.storeNotes();
   }
@@ -71,7 +96,6 @@ function createElement(note) {
   removeBtn.id = 'remove-btn';
   removeBtn.onclick = function(e) {
     note.remove();
-    DOM.clear();
     DOM.update();
     database.storeNotes();
   }
@@ -107,7 +131,7 @@ function createElement(note) {
     let tagElements = [];
     const tags = document.createElement('ul');
     tags.classList.add('note-tags');
-    note.tags.forEach(tag => tagElements.push(badgeCreater(tag)));
+    note.tags.forEach(tag => tagElements.push(noteBadge(tag)));
     appendListToElement(tagElements, tags);
     li.appendChild(tags);
   }
@@ -159,6 +183,16 @@ function toolMenuOpen() {
 ==== Note functions ==============
 ==================================
 */
+
+function dragDelete() {
+  if (findNote(DOM.noteId).deleted) {
+    findNote(DOM.noteId).remove();
+  } else {
+    findNote(DOM.noteId).remove()
+    DOM.update();
+    database.storeNotes();
+  }
+}
 
 // Create new note object for constructor
 function newNote(content) {
@@ -305,10 +339,6 @@ function newTagObject(label) {
   let obj = {
     label: label,
     amount: 1,
-    onClick: () => {
-      let label = this.label;
-
-    }
   }
   return obj;
 }
@@ -333,15 +363,25 @@ function getTags(arr) {
 }
 
 function removeTag() {
-  database.notes.forEach(note => {
-    note.tags.forEach(tag => tag === DOM.tagToBeRemoved ? note.removeTag(DOM.tagToBeRemoved) : false);
-  });
-  DOM.clear()
-  DOM.update();
-}
-
-function getTagName() {
-  console.log(this);
+  console.log(DOM.noteId);
+  if (DOM.noteId) {
+    database.notes.forEach(note => {
+      if (note.id === DOM.noteId) {
+        note.tags.forEach(tag => tag === DOM.tagToBeRemoved ? note.removeTag(DOM.tagToBeRemoved) : false);
+      };
+    });
+    DOM.tagToBeRemoved = '';
+    DOM.noteId = false;
+    DOM.update();
+  } else {
+    database.notes.forEach(note => {
+      note.tags.forEach(tag => tag === DOM.tagToBeRemoved ? note.removeTag(DOM.tagToBeRemoved) : false);
+    });
+    DOM.tagToBeRemoved = '';
+    DOM.noteId = false;
+    DOM.update();
+  }
+  database.storeNotes();
 }
 
 function allowDrop(event) {
@@ -353,7 +393,6 @@ function allowDrop(event) {
 ==== Utility functions ===========
 ==================================
 */
-
 
 function appendListToElement(arr, element) {
   arr.forEach(item => element.appendChild(item));

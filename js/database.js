@@ -46,7 +46,7 @@ const database = {
   },
 
   filter: (func = (note) => note) => {
-    DOM.clear();
+    console.log(func);
     return database.notes.filter(func);
   },
 
@@ -91,15 +91,17 @@ const database = {
 
 const DOM = {
   current: 'all',
-  currentTag: '',
+  currentTags: [],
   tagToBeRemoved: '',
+  noteId: false,
   tagsList: document.querySelector('.tag-list'),
   notesList: document.querySelector('#notes-output'),
 
   show: (arr = update()) => {
+    DOM.clear();
     arr.forEach(note => DOM.notesList.appendChild(createElement(note)));
     database.tags = getTags(database.notes);
-    database.tags.forEach(tag => DOM.tagsList.appendChild(badgeCreater(tag.label, tag.amount)));
+    database.tags.forEach(tag => DOM.tagsList.appendChild(badgeCreater(tag)));
   },
 
   clear: () => {
@@ -121,6 +123,7 @@ const DOM = {
   },
 
   update: () => {
+    DOM.clear();
     switch (DOM.current) {
       case 'all':
         DOM.show(database.filter(allNotes));
@@ -161,11 +164,20 @@ const allNotes = (note) => {
   return note.deleted === false;
 };
 
-const tags = (tagName) => {
-  DOM.current = 'tag';
-  DOM.currentTag = tagName;
-  return (note) => note.tags.find(tag => tag === tagName);
-};
+const tags = () => {
+  let notes = [];
+  for (let i = 0; i < DOM.currentTags.length; i++) {
+    database.notes.forEach(note => {
+      note.tags.find(tag => {
+        let temp = tag === DOM.currentTags[i] ? note : false;
+        if (temp) {
+          notes.push(temp);
+        }
+      })
+    })
+  }
+  return notes;
+}
 
 function newCreate(noteObject) {
   console.log(noteObject);

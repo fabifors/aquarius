@@ -9,6 +9,7 @@
   --remove-color-highlight: hsl(0, 49%, 70%);
   --offwhite: #ecf0f1;
   --muted: #747475;
+  --favourite: hsl(51, 95%, 58%);
 }
 
 * {
@@ -212,7 +213,10 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  cursor: -webkit-grab;
+}
+
+.tag-list-item.active {
+  background: var(--favourite);
 }
 
 .badge {
@@ -320,7 +324,7 @@ a {
 }
 
 #fav-btn.active-fav {
-  color: hsl(51, 95%, 58%);
+  color: var(--favourite);
 }
 
 .sidebar-menu {
