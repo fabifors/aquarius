@@ -67,6 +67,7 @@ const database = {
             const note = new Note(newNote(quill.getContents()));
             database.currentNote = note.id;
             database.notes.unshift(note);
+            database.storeNotes();
             DOM.show(database.filter(allNotes));
             console.log('database.saveNote(): No current, creating new note...');
             console.log('database.saveNote(): Creates new note with ID: ' + note.id);
@@ -86,7 +87,6 @@ const database = {
         localStorage.setItem('notes', JSON.stringify(exportNotes(database.notes)));
         localStorage.setItem('tags', JSON.stringify(database.tags));
     }
-
 }
 
 const DOM = {
