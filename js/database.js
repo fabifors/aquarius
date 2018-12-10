@@ -174,30 +174,11 @@ const tags = () => {
     database.notes.forEach(note => {
       note.tags.find(tag => {
         let temp = tag === DOM.currentTags[i] ? note : false;
-        if (temp) {
+        if (temp && !notes.includes(note)) {
           notes.push(temp);
         }
       })
     })
   }
   return notes;
-}
-
-function newCreate(noteObject) {
-  console.log(noteObject);
-  const li = document.createElement('li');
-  li.classList.add('note');
-  li.innerHTML =
-    `<div class="note-item-wrapper">
-        <div>
-          <h4 class="note__title">${noteObject.title}</h4>
-          <p class="note__summary"></p>
-          <p class="note__date">Updated: <span class="note__date__updated">${noteObject.lastModified}</span></p>
-        </div>
-        <div>
-          <i class="far fa-star" id="fav-btn" onclick="${noteObject.setFavourite()}"></i>
-          <i class="fas fa-times" id="remove-btn" onclick="${noteObject.remove()}"></i>
-        </div>
-      </div>`;
-  return li;
 }

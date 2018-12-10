@@ -4,7 +4,7 @@
   --search-field: #282A2E;
   --highlight-color: #404349;
   --toolbar-color: #f9f9f9;
-  --accent-color: #7289da;
+  --accent-color: hsl(227, 58%, 65%);
   --remove-color: hsl(0, 38%, 50%);
   --remove-color-highlight: hsl(0, 49%, 70%);
   --offwhite: #ecf0f1;
@@ -213,17 +213,21 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
+  cursor: pointer;
 }
 
-.tag-list-item.active {
-  background: var(--favourite);
+.tag-list-item .active {
+  background: hsl(227, 58%, 60%) !important;
+  color: #fff;
+  opacity: 1;
 }
+
 
 .badge {
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.3rem 0.3rem 0.35rem;
-  background: hsl(227, 58%, 65%);
+  background: hsl(227, 20%, 30%);
   color: #fff;
   border-radius: 0.25rem;
   box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.2);

@@ -8,8 +8,13 @@
 function badgeCreater(tag) {
   const li = document.createElement('li');
   li.classList.add('tag-list-item');
+  if (DOM.currentTags.includes(tag.label)) {
+    li.innerHTML = `<a class="badge active"><span class="badge__text">${tag.label}</span><span class="tag-amount">${tag.amount}</span></a>`;
+  } else {
+    li.innerHTML = `<a class="badge"><span class="badge__text">${tag.label}</span><span class="tag-amount">${tag.amount}</span></a>`;
+  }
   li.setAttribute('draggable', true);
-  li.innerHTML = `<a class="badge"><span class="badge__text">${tag.label}</span><span class="tag-amount">${tag.amount}</span></a>`;
+
   li.onclick = () => {
     if (DOM.currentTags.includes(tag.label)) {
       let index = DOM.currentTags.indexOf(tag.label);
@@ -34,7 +39,11 @@ function noteBadge(label) {
   const li = document.createElement('li');
   li.classList.add('tag-list-item');
   li.setAttribute('draggable', true);
-  li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span></a>`;
+  if (DOM.currentTags.includes(label)) {
+    li.innerHTML = `<a class="badge active"><span class="badge__text">${label}</span></a>`;
+  } else {
+    li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span></a>`;
+  }
   li.ondragstart = (e) => {
     // DOM.tagToBeRemoved = label;
     let noteId = e.target.parentNode.parentNode.id;
