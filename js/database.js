@@ -49,7 +49,6 @@ const database = {
   },
 
   filter: (func = (note) => note) => {
-    console.log(func);
     return database.notes.filter(func);
   },
 
@@ -71,7 +70,6 @@ const database = {
       database.currentNote = note.id;
       database.notes.unshift(note);
       DOM.show(database.filter(allNotes));
-      console.log('database.saveNote(): No current, creating new note...');
       console.log('database.saveNote(): Creates new note with ID: ' + note.id);
     }
   },
@@ -80,6 +78,7 @@ const database = {
     const note = findNote(id);
     note.title = noteTitle();
     note.lastModified = getDate('full');
+    note.deleted = false;
     note.content = quill.getContents();
     move(database.notes, database.notes.indexOf(note), 0);
     console.log('database.updateNote(): ' + note.title);
@@ -114,14 +113,12 @@ const DOM = {
       }
       console.log('DOM.clear(): Cleared DOM')
     } else {
-      console.log('DOM.clear(): No notes in DOM');
+      return false;
     }
     if (tagList.children.length > 0) {
-      console.log('Clearing tags');
       while (tagList.firstChild) {
         tagList.removeChild(tagList.firstChild);
       }
-      console.log('DOM.clear(): Cleared all tags')
     }
   },
 

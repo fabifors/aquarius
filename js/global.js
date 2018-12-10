@@ -9,6 +9,7 @@
     const notesOutput = document.querySelector('#notes-output');
     const tagList = notesDiv.querySelector('.tag-list');
     const addTagBtn = document.querySelector('.ql-tag');
+    const removeTagBtn = document.querySelector('.remove-tag');
 
     // Menus
     const mainMenu = document.querySelector('#main-menu');
@@ -19,6 +20,7 @@
     const toolsBTN = document.querySelector('.tool-menu').children[0];
     const tools = document.querySelector('.tools');
     const lightBox = document.querySelector('.lightbox');
+    const deletedNotesBtn = document.querySelector('#deleted-notes');
 
 
     // Welcome Selectors

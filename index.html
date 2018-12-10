@@ -144,7 +144,8 @@
           <ul id="main-menu">
             <li data-menu-item="notes" class="flex-center-v-h"><a href="#" onclick="DOM.show(database.filter(allNotes))" class="flex-center-v-h"><i class="fas fa-book"></i></a></li>
             <li data-menu-item="favourites" class="flex-center-v-h"><a href="#" onclick="DOM.show(database.filter(favourite))" class="flex-center-v-h"><i class="fas fa-star"></i></a></li>
-            <li data-menu-item="deleted" class="flex-center-v-h" ondrop="dragDelete()" ondragover="allowDrop(event)"><a href="#" onclick="DOM.show(database.filter(deleted))" class="flex-center-v-h"><i class="fas fa-trash"></i></a></li>
+            <li data-menu-item="settings" class="flex-center-v-h"><a href="#" onclick="" class="flex-center-v-h"><i class="fas fa-cog"></i></a></li>
+            <li data-menu-item="deleted" id="deleted-notes" class="flex-center-v-h" ondrop="dragDelete()" ondragover="allowDrop(event)"><a href="#" onclick="DOM.show(database.filter(deleted))" class="flex-center-v-h"><i class="fas fa-trash"></i></a></li>
           </ul>
         </nav>
       </div>
@@ -156,7 +157,7 @@
         </div>
         <div id="tag-container">
           <h3 class="tag-container-header">Tags</h3>
-          <ul class="tag-list grab"></ul>
+          <ul class="tag-list"></ul>
           <i class="fas fa-trash remove-tag" ondragover="allowDrop(event)" ondrop="removeTag()"></i>
         </div>
         <div id="notes-section">

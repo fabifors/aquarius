@@ -45,6 +45,11 @@ function badgeCreater(tag) {
   }
   li.ondragstart = () => {
     DOM.tagToBeRemoved = tag.label;
+    removeTagBtn.classList.add('active');
+  }
+
+  li.ondragend = () => {
+    removeTagBtn.classList.remove('active');
   }
   return li;
 }
@@ -63,6 +68,11 @@ function noteBadge(label) {
     let noteId = e.target.parentNode.parentNode.id;
     DOM.noteId = noteId;
     DOM.tagToBeRemoved = label;
+    removeTagBtn.classList.add('active');
+  }
+
+  li.ondragend = () => {
+    removeTagBtn.classList.remove('active');
   }
   return li;
 }
@@ -79,26 +89,63 @@ function createElement(note) {
   const btnDiv = document.createElement('div');
   const removeBtn = document.createElement('i');
   const favBtn = document.createElement('i');
+  const restoreBtn = document.createElement('i');
 
   li.setAttribute('draggable', true);
 
-  li.ondragstart = () => {
+  li.ondragstart = (e) => {
+    let targetClassList = e.target.querySelector('.tag-list-item') ? true : false;
     DOM.noteId = note.id;
+    const icon = deletedNotesBtn.children[0].children[0];
+    if (targetClassList) {
+      if (deletedNotesBtn.querySelector('.active') != null) {
+        icon.classList.remove('fa-trash');
+        icon.classList.add('fa-skull');
+      } else {
+        icon.classList.remove('fa-trash');
+        icon.classList.add('fa-box-open');
+      }
+    }
   }
 
-  if (note.favourite === true) {
-    favBtn.classList.add('fas', 'fa-star', 'active-fav');
+  li.ondragend = () => {
+    const icon = deletedNotesBtn.children[0].children[0];
+    icon.classList.remove('fa-box-open');
+    icon.classList.add('fa-trash');
+    if (deletedNotesBtn.querySelector('.active') != null) {
+      icon.classList.remove('fa-skull');
+      icon.classList.add('fa-trash');
+    } else {
+      icon.classList.remove('fa-box-open');
+      icon.classList.add('fa-trash');
+    }
+
+  }
+
+  if (note.deleted === true) {
+    restoreBtn.classList.add('fas', 'fa-undo');
+    restoreBtn.onclick = () => {
+      note.restore();
+      DOM.update();
+      database.storeNotes();
+      console.log(`note: Restored note with id: ${note.id}`)
+    }
+    btnDiv.appendChild(restoreBtn);
   } else {
-    favBtn.classList.add('far', 'fa-star');
-  }
-  favBtn.id = 'fav-btn';
+    if (note.favourite === true) {
+      favBtn.classList.add('fas', 'fa-star', 'active-fav');
+    } else {
+      favBtn.classList.add('far', 'fa-star');
+    }
+    favBtn.id = 'fav-btn';
 
-  favBtn.onclick = (e) => {
-    note.setFavourite();
-    DOM.update();
-    database.storeNotes();
+    favBtn.onclick = (e) => {
+      note.setFavourite();
+      DOM.update();
+      database.storeNotes();
+    }
+    btnDiv.appendChild(favBtn);
   }
-
   removeBtn.classList.add('fas', 'fa-times');
   removeBtn.id = 'remove-btn';
   removeBtn.onclick = function(e) {
@@ -118,7 +165,7 @@ function createElement(note) {
   date.appendChild(span);
   mainDiv.appendChild(date);
 
-  btnDiv.appendChild(favBtn);
+
   btnDiv.appendChild(removeBtn);
 
   wrapperDiv.classList.add('note-item-wrapper');
