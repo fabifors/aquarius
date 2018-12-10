@@ -3,7 +3,6 @@
     const newBtn = document.querySelector("#new-btn");
     const tagbtn = document.createElement('i');
 
-
     // Notes
     const notesDiv = document.querySelector('#notes');
     const notesOutput = document.querySelector('#notes-output');
@@ -21,7 +20,6 @@
     const tools = document.querySelector('.tools');
     const lightBox = document.querySelector('.lightbox');
     const deletedNotesBtn = document.querySelector('#deleted-notes');
-
 
     // Welcome Selectors
     let welcomeState = 0;

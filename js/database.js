@@ -39,7 +39,6 @@ const database = {
       return;
     } else {
       console.log(`Got note with id: ${id}`);
-      let notes = [].slice.call(notesOutput.children);
       database.currentNote = id;
       quill.setContents(note.content);
       document.getElementsByClassName("ql-editor")[0].focus();

@@ -94,10 +94,10 @@ function createElement(note) {
   li.setAttribute('draggable', true);
 
   li.ondragstart = (e) => {
-    let targetClassList = e.target.querySelector('.tag-list-item') ? true : false;
+    let targetClassList = [].slice.call(e.target.classList);
     DOM.noteId = note.id;
     const icon = deletedNotesBtn.children[0].children[0];
-    if (targetClassList) {
+    if (targetClassList.includes('note')) {
       if (deletedNotesBtn.querySelector('.active') != null) {
         icon.classList.remove('fa-trash');
         icon.classList.add('fa-skull');
