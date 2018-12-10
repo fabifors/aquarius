@@ -50,28 +50,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const qlPicker = document.getElementById('ql-picker-options-3');
 
     qlPicker.addEventListener('click', (event) => {
-      themePicker(event.target.getAttribute("data-value"));
+        themePicker(event.target.getAttribute("data-value"));
     });
 
     let themePicker = (theme) => {
-      qlEditor.getElementsByTagName('span')[0].className = '';
-      switch (theme) {
-        case 'arial':
-          qlEditor.classList.remove('template-2', 'template-3');
-          qlEditor.classList.add('template-1');
-          break;
-        case 'lobster':
-          qlEditor.classList.remove('template-1', 'template-3');
-          qlEditor.classList.add('template-2');
-          break;
-        case 'sofia':
-          qlEditor.classList.remove('template-1', 'template-2');
-          qlEditor.classList.add('template-3');
-          break;
-        break;
-        default:
-          qlEditor.classList.remove('template-1', 'template-2', 'template-3');
-      }
+        qlEditor.getElementsByTagName('span')[0].className = '';
+        switch (theme) {
+            case 'arial':
+                qlEditor.classList.remove('template-2', 'template-3');
+                qlEditor.classList.add('template-1');
+                break;
+            case 'lobster':
+                qlEditor.classList.remove('template-1', 'template-3');
+                qlEditor.classList.add('template-2');
+                break;
+            case 'sofia':
+                qlEditor.classList.remove('template-1', 'template-2');
+                qlEditor.classList.add('template-3');
+                break;
+                break;
+            default:
+                qlEditor.classList.remove('template-1', 'template-2', 'template-3');
+        }
     }
 
     /*
