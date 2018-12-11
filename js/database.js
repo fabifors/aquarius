@@ -133,8 +133,6 @@ const DOM = {
             case 'favourite':
                 DOM.show(database.filter(favourite));
                 break;
-            case 'tag':
-                DOM.show(database.filter(tag(DOM.currentTag)));
             default:
                 DOM.show(database.filter());
         }
