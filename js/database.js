@@ -77,8 +77,20 @@ const database = {
     // If the user is working on a note: save the note first before creating a new one
     newNote: () => {
         if (database.currentNote === '') {
-            quill.setContents('');
-            document.querySelector('.ql-editor').focus();
+            const content = quill.getContents();
+            console.log(content.ops[0].insert.length);
+            if (content.ops.length === 1 && content.ops[0].insert.length === 1) {
+                console.log('this works');
+                quill.setContents('');
+                document.querySelector('.ql-editor').focus();
+            } else {
+                const note = new Note(newNote(quill.getContents()));
+                console.log(note);
+                database.notes.unshift(note);
+                database.storeNotes();
+                DOM.update();
+            }
+
         } else {
             database.saveNote(database.currentNote);
             database.storeNotes();

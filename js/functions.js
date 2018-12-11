@@ -405,7 +405,7 @@ function newTagObject(label) {
 function getTags(arr) {
     let temp = [];
     arr.forEach(note => {
-        if (note.deleted === true) {
+        if (note.deleted === true || note.tags.length === 0) {
             return;
         } else {
             note.tags.forEach(tag => {
