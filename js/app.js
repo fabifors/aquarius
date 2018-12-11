@@ -95,11 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ==== Noteitem Events =============
     ==================================
     */
-    database.noteList.addEventListener('click', (e) => {
+    notesOutput.addEventListener('click', (e) => {
         const targetId = e.target.id;
         if (e.target.tagName.toLowerCase() === "li" &&
             database.notes.find(note => note.id === targetId)) {
-            // end of condition
             if (database.notes.find(note => note.id === targetId).deleted === false) {
                 showMenu(false);
                 database.openNote(targetId);

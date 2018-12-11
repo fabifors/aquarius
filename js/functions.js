@@ -54,6 +54,7 @@ function badgeCreater(tag) {
     return li;
 }
 
+// Create a badge to be displayed on the note itself
 function noteBadge(label) {
     const li = document.createElement('li');
     li.classList.add('tag-list-item');
@@ -64,7 +65,6 @@ function noteBadge(label) {
         li.innerHTML = `<a class="badge"><span class="badge__text">${label}</span></a>`;
     }
     li.ondragstart = (e) => {
-        // DOM.tagToBeRemoved = label;
         let noteId = e.target.parentNode.parentNode.id;
         DOM.noteId = noteId;
         DOM.tagToBeRemoved = label;
@@ -392,6 +392,7 @@ function move(arr, old_index, new_index) {
 ==================================
 */
 
+// Creates and return a tag object
 function newTagObject(label) {
     let obj = {
         label: label,
@@ -400,6 +401,7 @@ function newTagObject(label) {
     return obj;
 }
 
+// Loops through all notes and returns array with all their tags (objects)
 function getTags(arr) {
     let temp = [];
     arr.forEach(note => {
@@ -419,8 +421,11 @@ function getTags(arr) {
     return temp;
 }
 
+// Removes a Tag, Condition is checking if a note ID are present in DOM.noteId
+
 function removeTag() {
     console.log(DOM.noteId);
+    // If true, the tag form the specific note is removed
     if (DOM.noteId) {
         database.notes.forEach(note => {
             if (note.id === DOM.noteId) {
@@ -430,7 +435,8 @@ function removeTag() {
         DOM.tagToBeRemoved = '';
         DOM.noteId = false;
         DOM.update();
-    } else {
+
+    } else { // If false, the note is removed completely
         database.notes.forEach(note => {
             note.tags.forEach(tag => tag === DOM.tagToBeRemoved ? note.removeTag(DOM.tagToBeRemoved) : false);
         });
@@ -441,6 +447,7 @@ function removeTag() {
     database.storeNotes();
 }
 
+// Function to allow an item to be dropped on the item that has function
 function allowDrop(event) {
     event.preventDefault();
 }
@@ -451,6 +458,7 @@ function allowDrop(event) {
 ==================================
 */
 
+// Takes an array and append each item to a specific element
 function appendListToElement(arr, element) {
     arr.forEach(item => element.appendChild(item));
 }
