@@ -80,14 +80,14 @@ const database = {
             const content = quill.getContents();
             console.log(content.ops[0].insert.length);
             if (content.ops.length === 1 && content.ops[0].insert.length === 1) {
-                console.log('this works');
                 quill.setContents('');
                 document.querySelector('.ql-editor').focus();
             } else {
                 const note = new Note(newNote(quill.getContents()));
-                console.log(note);
                 database.notes.unshift(note);
                 database.storeNotes();
+                quill.setContents('');
+                document.querySelector('.ql-editor').focus();
                 DOM.update();
             }
 
