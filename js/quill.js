@@ -1,5 +1,5 @@
 var Font = Quill.import('formats/font');
-Font.whitelist = ['sans-serif', 'sofia', 'roboto', 'lobster'];
+Font.whitelist = ['sans-serif', 'arial', 'lobster', 'sofia'];
 Quill.register(Font, true);
 
 var toolbarOptions = [
@@ -23,7 +23,7 @@ var toolbarOptions = [
         'background': []
     }],
     [{
-        'font': ['sans-serif', 'sofia', 'roboto', 'lobster']
+        'font': ['sans-serif', 'arial', 'lobster', 'sofia']
     }],
     [{
         'align': []

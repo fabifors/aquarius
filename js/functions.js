@@ -165,7 +165,6 @@ function createElement(note) {
     date.appendChild(span);
     mainDiv.appendChild(date);
 
-
     btnDiv.appendChild(removeBtn);
 
     wrapperDiv.classList.add('note-item-wrapper');
