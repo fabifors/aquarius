@@ -1,4 +1,6 @@
-// Initialize the Database object with its methods
+/* 
+In Quire, we use a local database object that keeps track of notes, tags and the current note. It also has some methods that alternate the exsisting notes and tags depending on some factors. database.init() is called every time a user enters the app. The other mehtods gets called at appropriate times through out the application to remove, open, filter notes and so on. It also has a save, update and new note feature.
+*/
 const database = {
     notes: [],
     tags: [],
@@ -56,14 +58,22 @@ const database = {
         }
     },
 
-    // The créme de la créme: database.filter (jk)
-    // This acts as a short hand for database.notes.filter()
+    /* 
+    The créme de la créme: database.filter (jk)
+    This acts as a short hand for database.notes.filter()
+    HINT: The name of this function can be confusing at first. When reading the code, think of it like this:
+
+    In english ==> In the DOM, Show the database filtered through the favourite filter.
+    In javascript ==> DOM.show(database.filter(favourite));
+
+    It's not that bad if you get into the mindset.
+     */
     filter: (func = (note) => note) => {
         // runs argument (function) as an argument to the array function filter
         return database.notes.filter(func);
     },
 
-    // Function that gets called when plus sign is clicked
+    // Method that gets called when plus sign is clicked
     // If the user is working on a note: save the note first before creating a new one
     newNote: () => {
         if (database.currentNote === '') {
@@ -95,7 +105,7 @@ const database = {
         }
     },
 
-    // Function that updates a specific note to current content and date, 
+    // Mehtod that updates a specific note to current content and date, 
     updateNote: (id) => {
         const note = findNote(id);
         note.title = noteTitle();
@@ -112,7 +122,7 @@ const database = {
 }
 
 /* 
-This is the object that keeps track of all the DOM states. It includes the .show(), .clear() and .update() methods. DOM.clear() gets called inside both .update() and .show() so no need for calling that unless forcing the DOM to clear.
+This is the object that keeps track of all the DOM states. It includes the .show(), .clear() and .update() methods. DOM.clear() gets called inside both .update() and .show() so no need for calling that unless you want to force the DOM to clear.
 */
 const DOM = {
     // Current refers to the current "view" in the DOM. For example 'all' refer to 'All notes are shown' in the DOM.noteList
@@ -203,7 +213,7 @@ const allNotes = (note) => {
 };
 
 /*
-This is the only kinda filter that works differently. It does not get passed down the filter method within the database object. It gets passed directly into the DOM.show() method. It returns an array of all the notes that contains one of the tags in the DOM.currentTags array. This get's called everytime a tag is clicked.
+This is the only kinda filter that works differently. It does not get passed down the .filter() method within the database object. It gets passed directly into the DOM.show() method. It returns an array of all the notes that contains one of the tags in the DOM.currentTags array. This get's called everytime a tag is clicked.
 */
 const tags = () => {
     let notes = [];
