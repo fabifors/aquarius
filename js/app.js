@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     database.init();
-
     // Create the button for adding tags in toolbar
     tagbtn.classList.add('fas', 'fa-tag');
     addTagBtn.appendChild(tagbtn);
@@ -26,9 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('search-input').addEventListener('keyup', (event) => {
+    document.querySelector('#search-input').addEventListener('keyup', (event) => {
         search(event.target.value);
     });
+
+
+
 
     /*
     ==================================
@@ -36,13 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ==================================
     */
 
-    const qlEditor = document.querySelector('.ql-editor');
-    const qlPicker = document.getElementById('ql-picker-options-3');
-
-    qlPicker.addEventListener('click', (event) => {
-        themePicker(event.target.getAttribute("data-value"));
+    qlPicker.addEventListener('onhover', (event) => {
+        console.log(event.target.value)
     });
 
+    qlPicker.addEventListener('click', (event) => {
+        templatePicker(event.target.getAttribute("data-value"));
+    });
 
     /*
     ==================================

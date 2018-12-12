@@ -271,7 +271,7 @@ function newNote(content) {
         deleted: false,
         title: noteTitle(),
         tags: [],
-        template: 'default',
+        template: 'template-1',
         content: content
     }
     return obj
@@ -308,8 +308,7 @@ function importNotes(arr) {
 
 // Get note title
 function noteTitle() {
-    let title = quill.getContents().ops[0].insert;
-    return title;
+    return quill.getContents().ops.find(delta => !delta.insert.hasOwnProperty('image')).insert;
 }
 
 // Print note
@@ -469,23 +468,22 @@ function allowDrop(event) {
 */
 
 function templatePicker(template) {
-    qlEditor.getElementsByTagName('span')[0].className = '';
     switch (template) {
-        case 'arial':
-            qlEditor.classList.remove('template-2', 'template-3');
-            qlEditor.classList.add('template-1');
+        case 'template-1':
+            qlEditor.parentNode.classList.remove('template-2', 'template-3');
+            qlEditor.parentNode.classList.add('template-1');
             break;
-        case 'lobster':
-            qlEditor.classList.remove('template-1', 'template-3');
-            qlEditor.classList.add('template-2');
+        case 'template-2':
+            qlEditor.parentNode.classList.remove('template-1', 'template-3');
+            qlEditor.parentNode.classList.add('template-2');
             break;
-        case 'sofia':
-            qlEditor.classList.remove('template-1', 'template-2');
-            qlEditor.classList.add('template-3');
-            break;
+        case 'template-3':
+            qlEditor.parentNode.classList.remove('template-1', 'template-2');
+            qlEditor.parentNode.classList.add('template-3');
             break;
         default:
-            qlEditor.classList.remove('template-1', 'template-2', 'template-3');
+            qlEditor.parentNode.classList.remove('template-1', 'template-2', 'template-3');
+            break;
     }
 }
 

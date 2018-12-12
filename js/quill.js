@@ -23,12 +23,11 @@ var toolbarOptions = [
         'background': []
     }],
     [{
-        'font': ['sans-serif', 'arial', 'lobster', 'sofia']
-    }],
-    [{
         'align': []
     }],
     ['image'],
+
+    ['templates'],
     ['tag']
 ];
 

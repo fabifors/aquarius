@@ -194,7 +194,7 @@ a {
 #tag-container {
     padding: 0.8rem;
     border-radius: 5px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     background-color: var(--search-field);
     display: flex;
     align-items: center;
@@ -282,6 +282,7 @@ a {
 .badge .fas {
     margin-right: 0.3rem;
 }
+
 
 /* Note list styles */
 
@@ -462,9 +463,13 @@ nav #main-menu li a.active {
 =======================================================
 */
 
+#editor-wrapper {
+    height: 100%;
+}
+
 #editor {
     border: none;
-    height: calc(100vh - 9rem);
+    height: calc(100% - 3rem);
     overflow-y: scroll;
 }
 
@@ -476,7 +481,7 @@ nav #main-menu li a.active {
 
 .ql-editor {
     background-color: white;
-    padding: 2.5rem 1.5rem;
+    padding: 1.5rem 2rem;
     z-index: 20;
 }
 
@@ -1014,29 +1019,26 @@ nav #main-menu li a.active {
     }
 
     .wrapper {
-        padding-top: 5.725rem;
         background-color: hsl(0, 0%, 98%);
     }
 
     .ql-editor {
         max-width: 768px;
+        margin-top: 1rem;
         margin-left: auto;
         margin-right: auto;
         padding: 4rem 3.75rem;
         box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+        min-height: calc(100% - 2rem);
+        height: auto;
+        margin: 1rem auto;
     }
 }
 
 @media screen and (min-width: 1279px) {
 
     #editor {
-        padding-bottom: 2.5rem;
         padding-top: 2.5rem;
-        overflow: auto;
-        height: 100%
-    }
-
-    #editor-wrapper {
         height: 100%;
     }
 
@@ -1047,8 +1049,7 @@ nav #main-menu li a.active {
 
     .ql-editor {
         width: 210mm;
-        height: 297mm;
-        margin: 0 auto;
+
         background-color: white;
 
         box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);

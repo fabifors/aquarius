@@ -15,6 +15,7 @@ const database = {
 
     init: () => {
         let storageNotes = JSON.parse(localStorage.getItem('notes'));
+        templatePicker('template-1');
         if (storageNotes === null) {
             console.log('database.Init(): No notes in memory (new user)');
         } else if (storageNotes.length === 0) {
@@ -45,6 +46,7 @@ const database = {
     // Takes argument in form of an ID that it use to find and open a specific note in the database
     openNote: (id) => {
         let note = database.notes.find(note => note.id === id);
+        let select = document.querySelector('.ql-template-picker');
         if (note === undefined) {
             console.log(`Could not find note with ID: ${id}`);
             return;
@@ -52,6 +54,8 @@ const database = {
             console.log(`Got note with id: ${id}`);
             database.currentNote = id;
             quill.setContents(note.content);
+            select.value = note.template;
+            templatePicker(note.template);
             document.getElementsByClassName("ql-editor")[0].focus();
             DOM.update();
             return note;
@@ -76,27 +80,33 @@ const database = {
     // Method that gets called when plus sign is clicked
     // If the user is working on a note: save the note first before creating a new one
     newNote: () => {
+        let template = document.querySelector('.ql-template-picker');
         if (database.currentNote === '') {
             const content = quill.getContents();
             console.log(content.ops[0].insert.length);
             if (content.ops.length === 1 && content.ops[0].insert.length === 1) {
                 quill.setContents('');
+                template.value = 'template-1';
+                templatePicker('template-1');
                 document.querySelector('.ql-editor').focus();
             } else {
                 const note = new Note(newNote(quill.getContents()));
+                template.value = 'template-1';
+                templatePicker('template-1');
                 database.notes.unshift(note);
                 database.storeNotes();
                 quill.setContents('');
                 document.querySelector('.ql-editor').focus();
                 DOM.update();
             }
-
         } else {
             database.saveNote(database.currentNote);
             database.storeNotes();
             database.currentNote = '';
             quill.setContents('');
             document.querySelector('.ql-editor').focus();
+            template.value = 'template-1';
+            templatePicker('template-1');
         }
     },
 

@@ -4,20 +4,20 @@
 =================================================
 ==[ ]-> Create small screenshots for each template
 ==[ ]-> Make them appear on template hover
-==[ ]-> When a note is opened
-==----[ ]-> Set editor template to this.template
+==[X]-> When a note is opened
+==----[X]-> Set editor template to this.template
 
 
 ====== JavaScript To Do =========================
-==[ ]-> 
+==[X]-> Function for choose template
+==[X]-> Function for set template
 
 ====== CSS To Do ================================
-==[ ]-> Small fixes to template designs
+==[/]-> Small fixes to template designs
 ==[ ]-> Create class for template hover toggle
 ==[ ]-> 
 
 =================================================
 =================================================
 =================================================
-
 
