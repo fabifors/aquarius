@@ -27,16 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('search-input').addEventListener('keyup', (event) => {
-        // let searchArray = [];
-        // database.notes.filter(note => {
-        //     let noteContent = note.content.ops[0].insert.toLowerCase();
-        //     if (noteContent.includes(event.target.value.toLowerCase())) {
-        //         searchArray.push(note);
-        //         DOM.show(searchArray);
-        //     } else {
-        //         DOM.clear();
-        //     };
-        // });
         search(event.target.value);
     });
 
