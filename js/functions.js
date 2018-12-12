@@ -131,6 +131,7 @@ function createElement(note) {
             console.log(`note: Restored note with id: ${note.id}`)
         }
         btnDiv.appendChild(restoreBtn);
+        li.classList.add('deleted');
     } else {
         if (note.favourite === true) {
             favBtn.classList.add('fas', 'fa-star', 'active-fav');
@@ -183,7 +184,7 @@ function createElement(note) {
     li.appendChild(wrapperDiv);
 
     // If tags exsist
-    if (note.tags.length > 0) {
+    if (note.tags.length > 0 && note.deleted === false) {
         // append them in UL element
         let tagElements = [];
         const tags = document.createElement('ul');

@@ -17,26 +17,27 @@ document.addEventListener('DOMContentLoaded', () => {
             findNote(database.currentNote).addTag(newTag);
             database.saveNote(database.currentNote);
             database.storeNotes();
-            DOM.show(database.filter(allNotes));
+            DOM.update();
         } else {
             findNote(database.currentNote).addTag(newTag);
             database.saveNote(database.currentNote);
             database.storeNotes();
-            DOM.show(database.filter(allNotes));
+            DOM.update();
         }
     });
 
     document.getElementById('search-input').addEventListener('keyup', (event) => {
-        let searchArray = [];
-        database.notes.filter(note => {
-            let noteContent = note.content.ops[0].insert.toLowerCase();
-            if (noteContent.includes(event.target.value.toLowerCase())) {
-                searchArray.push(note);
-                DOM.show(searchArray);
-            } else {
-                DOM.clear();
-            };
-        });
+        // let searchArray = [];
+        // database.notes.filter(note => {
+        //     let noteContent = note.content.ops[0].insert.toLowerCase();
+        //     if (noteContent.includes(event.target.value.toLowerCase())) {
+        //         searchArray.push(note);
+        //         DOM.show(searchArray);
+        //     } else {
+        //         DOM.clear();
+        //     };
+        // });
+        search(event.target.value);
     });
 
     /*

@@ -155,25 +155,19 @@ const DOM = {
     show: (arr = update()) => {
         DOM.clear();
         arr.forEach(note => DOM.notesList.appendChild(createElement(note)));
-        database.tags = getTags(database.notes);
+        database.tags = getTags(DOM.getCurrentNotes());
         database.tags.forEach(tag => DOM.tagsList.appendChild(badgeCreater(tag)));
     },
 
     // This function only removes the elements created by DOM.show() so that when DOM.show is created run, no duplicates are present
     clear: () => {
-        if (DOM.notesList.children.length > 0) {
-            while (DOM.notesList.firstChild) {
-                DOM.notesList.removeChild(DOM.notesList.firstChild);
-            }
-            console.log('DOM.clear(): Cleared DOM')
-        } else {
-            return false;
+        while (DOM.notesList.firstChild) {
+            DOM.notesList.removeChild(DOM.notesList.firstChild);
         }
-        if (tagList.children.length > 0) {
-            while (tagList.firstChild) {
-                tagList.removeChild(tagList.firstChild);
-            }
+        while (tagList.firstChild) {
+            tagList.removeChild(tagList.firstChild);
         }
+        console.log('DOM.clear(): Cleared DOM')
     },
 
     // Takes the DOM.current variable (described above) and run the DOM.show() method with the corresponding filter. 
@@ -191,6 +185,19 @@ const DOM = {
                 break;
             default:
                 DOM.show(database.filter());
+        }
+    },
+
+    getCurrentNotes: () => {
+        switch (DOM.current) {
+            case 'all':
+                return database.filter(allNotes)
+            case 'deleted':
+                return database.filter(deleted)
+            case 'favourite':
+                return database.filter(favourite)
+            default:
+                return database.filter()
         }
     }
 }
@@ -223,6 +230,20 @@ const allNotes = (note) => {
     setActive('notes', 'All Notes');
     return note.deleted === false;
 };
+
+// Show all search results for DOM.current array 
+const search = (searchTerm) => {
+    DOM.clear();
+    let serachResults = DOM.getCurrentNotes().filter(note => {
+        let noteTitle = note.title.toLowerCase();
+        if (noteTitle.includes(searchTerm.toLowerCase())) {
+            return note;
+        } else {
+            return;
+        }
+    })
+    DOM.show(serachResults);
+}
 
 /*
 This is the only kinda filter that works differently. It does not get passed down the .filter() method within the database object. It gets passed directly into the DOM.show() method. It returns an array of all the notes that contains one of the tags in the DOM.currentTags array. This get's called everytime a tag is clicked.
