@@ -86,6 +86,8 @@ function createElement(note) {
     const p = document.createElement('p');
     const date = document.createElement('p');
     const span = document.createElement('span');
+    const firstdate = document.createElement('p');
+    const firstspan = document.createElement('span');
     const btnDiv = document.createElement('div');
     const removeBtn = document.createElement('i');
     const favBtn = document.createElement('i');
@@ -159,12 +161,19 @@ function createElement(note) {
     h4.innerHTML = note.title;
     date.innerHTML = "Updated: ";
     span.innerHTML = note.lastModified;
+    firstdate.innerHTML = "Created: ";
+    firstspan.innerHTML = note.created;
 
     // Append all elements in correct order
     mainDiv.appendChild(h4);
     mainDiv.appendChild(p);
+
     date.appendChild(span);
+    firstdate.appendChild(firstspan);
+
+    mainDiv.appendChild(firstdate);
     mainDiv.appendChild(date);
+
 
     btnDiv.appendChild(removeBtn);
 
@@ -455,6 +464,33 @@ function allowDrop(event) {
 
 /*
 ==================================
+==== Template functions ==========
+==================================
+*/
+
+function templatePicker(template) {
+    qlEditor.getElementsByTagName('span')[0].className = '';
+    switch (template) {
+        case 'arial':
+            qlEditor.classList.remove('template-2', 'template-3');
+            qlEditor.classList.add('template-1');
+            break;
+        case 'lobster':
+            qlEditor.classList.remove('template-1', 'template-3');
+            qlEditor.classList.add('template-2');
+            break;
+        case 'sofia':
+            qlEditor.classList.remove('template-1', 'template-2');
+            qlEditor.classList.add('template-3');
+            break;
+            break;
+        default:
+            qlEditor.classList.remove('template-1', 'template-2', 'template-3');
+    }
+}
+
+/*
+==================================
 ==== Utility functions ===========
 ==================================
 */
@@ -463,3 +499,9 @@ function allowDrop(event) {
 function appendListToElement(arr, element) {
     arr.forEach(item => element.appendChild(item));
 }
+
+/*
+==================================
+==== Preview functions ===========
+==================================
+*/

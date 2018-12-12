@@ -1,14 +1,14 @@
 :root {
-    --menu-color: #252629;
-    --aside-color: #323439;
-    --search-field: #282A2E;
-    --highlight-color: #404349;
-    --toolbar-color: #f9f9f9;
+    --menu-color: hsl(225, 5%, 15%);
+    --aside-color: hsl(223, 7%, 21%);
+    --search-field: hsl(220, 7%, 17%);
+    --highlight-color: hsl(220, 7%, 27%);
+    --toolbar-color: hsl(0, 0%, 98%);
     --accent-color: hsl(227, 58%, 65%);
     --remove-color: hsl(0, 38%, 50%);
     --remove-color-highlight: hsl(0, 49%, 70%);
-    --offwhite: #ecf0f1;
-    --muted: #747475;
+    --offwhite: hsl(192, 15%, 94%);
+    --muted: hsl(240, 0%, 46%);
     --favourite: hsl(51, 95%, 58%);
 }
 
@@ -122,7 +122,7 @@ a {
 }
 
 .brand a {
-    color: #fff;
+    color: hsl(0, 0%, 100%);
     height: 100%;
     width: 100%;
     transition: color 300ms;
@@ -161,7 +161,7 @@ a {
 }
 
 .search-wrapper .fas {
-    color: #747475;
+    color: hsl(240, 0%, 46%);
     position: absolute;
     top: 0.87em;
     left: 0.75em;
@@ -225,7 +225,7 @@ a {
 
 .tag-list-item .active {
     background: hsl(227, 58%, 60%) !important;
-    color: #fff;
+    color: hsl(0, 0%, 100%);
     opacity: 1;
 }
 
@@ -235,7 +235,7 @@ a {
     font-weight: 600;
     padding: 0.3rem 0.3rem 0.35rem;
     background: hsl(227, 20%, 30%);
-    color: #fff;
+    color: hsl(0, 0%, 100%);
     border-radius: 0.25rem;
     box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.2);
     opacity: 0.8;
@@ -251,7 +251,7 @@ a {
 .tag-amount {
     border-radius: 3px;
     background: rgba(0, 0, 0, 0.3);
-    color: #fff;
+    color: hsl(0, 0%, 100%);
     padding: 2px 5px;
     margin-left: 0.3rem;
 }
@@ -307,7 +307,7 @@ a {
 }
 
 #notes ul li.note.deleted .fa-undo:hover {
-    color: #fff;
+    color: hsl(0, 0%, 100%);
 }
 
 #notes ul li.note.active {
@@ -335,14 +335,22 @@ a {
     margin-bottom: 0.5em;
 }
 
-#notes ul li.note .note-item-wrapper div p:nth-last-child(2) {
+#notes ul li.note .note-item-wrapper div p:nth-last-child(3) {
     margin-bottom: 0.5em;
 }
 
 #notes ul li.note .note-item-wrapper div p:nth-last-child(1) {
     font-size: 0.75em;
     color: var(--muted);
+    margin-top: 0.25rem;
 }
+
+#notes ul li.note .note-item-wrapper div p:nth-last-child(2) {
+    font-size: 0.75em;
+    color: var(--muted);
+    font-weight: 600;
+}
+
 
 #notes ul li.note .note-item-wrapper {
     display: flex;
@@ -409,7 +417,7 @@ nav #main-menu li a:hover,
 nav #main-menu li a.active {
     border-radius: 25%;
     background: var(--accent-color);
-    color: #fff;
+    color: hsl(0, 0%, 100%);
     transform: scale(0.95);
 }
 
@@ -428,16 +436,16 @@ nav #main-menu li a.active {
 }
 
 .sidebar-menu #main-menu li a i {
-    transition: background 300ms, transform 300ms;
+    transition: background 300ms, transform 300ms, border-radius 300ms;
     transform: scale(1);
 }
 
 .sidebar-menu #main-menu li a i.fa-box-open {
-    background: hsl(0, 60%, 50%);
+    background: hsl(0, 50%, 50%);
     color: #fff;
     padding: 1rem;
     border-radius: 25%;
-    transform: scale(1.1);
+    transform: scale(1.0);
 }
 
 .sidebar-menu #main-menu li a.active i.fa-skull {
@@ -1004,14 +1012,22 @@ nav #main-menu li a.active {
         justify-content: center;
         align-items: center;
     }
-}
-
-@media screen and (min-width: 1279px) {
 
     .wrapper {
         padding-top: 5.725rem;
-        background-color: #f4f4f4;
+        background-color: hsl(0, 0%, 98%);
     }
+
+    .ql-editor {
+        max-width: 768px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 4rem 3.75rem;
+        box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+    }
+}
+
+@media screen and (min-width: 1279px) {
 
     #editor {
         padding-bottom: 2.5rem;
@@ -1034,9 +1050,8 @@ nav #main-menu li a.active {
         height: 297mm;
         margin: 0 auto;
         background-color: white;
-        -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
-        box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
-        padding: 4rem 3rem;
+
+        box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+        padding: 4.25rem 4rem;
     }
 }
