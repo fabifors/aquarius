@@ -1,12 +1,12 @@
 ### Quire - A simple and elegant notetaking app
-The project is an in browser rich text editor built upon the open source Quill wysiwyg editor architecture. The app works without a back-end and instead utilizing local storage as storage method. I lets the user create notes, format and style them and save and organize a collection of notes.
+The project is an in browser rich text editor built upon the open source Quill wysiwyg editor architecture. The app works without a back-end and instead utilizing local storage as storage method. It lets the user create notes, format and style them and save and organize a collection of notes.
 
-The code is has documentation through out and any part that isn't self explanatory will likely be preceded by a comment that explains the following codes purpose. Below you will find an index of the different files in the project.
+The code has documentation through out and any part that isn't self explanatory will likely be preceded by a comment that explains the following codes purpose. Below you will find an index of the different files in the project.
 
 
 ###Javascript.
 
-The code is structured in a object oriented manner and split in to six javascript files with their own distinct area of concern. The are implemented in index.html in the following order.
+The code is structured in a object oriented manner and split in to six javascript files with their own distinct area of concern. They are implemented in index.html in the following order.
 
 quill.js: this file contains the modifications and initializing of the quill rich text editor. The actual script for Quil is linked by a CDN on line 204 in index.html.
 
@@ -24,7 +24,7 @@ App.js: contains code that relates to user interaction with the app mainly event
 Html: the app has a single page structure and the index.html file is the only html file in the project. Any element not found in this file is therefore injected by javascript.
 
 
-Css: the project contains four css files with separate areas of concern, there are also five css files accessed through CDN in index.html these are the quil css file as well as icons and fonts.
+Css: the project contains of four css files with separate areas of concern, there are also five css files accessed through CDN in index.html these are the quil css file as well as icons and fonts.
 
 normalize.css: this file makes sets a more consistent baseline for the rendering of the css styles.
 
