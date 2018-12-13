@@ -308,7 +308,14 @@ function importNotes(arr) {
 
 // Get note title
 function noteTitle() {
-    return quill.getContents().ops.find(delta => !delta.insert.hasOwnProperty('image')).insert;
+    let title = quill.getContents().ops.find(delta => {
+        return (!delta.insert.hasOwnProperty('image')) && (delta.insert.length > 2);
+    }).insert.substring(0, 20);
+    if (title.length === 20) {
+        title = title + '...';
+    }
+
+    return title
 }
 
 // Print note

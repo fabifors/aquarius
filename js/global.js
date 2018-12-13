@@ -79,7 +79,7 @@ select.onchange = () => {
 }
 
 // Select 
-select.classList.add('ql-template-picker');
+select.classList.add('ql-template-picker', 'ql-picker', 'ql-picker-label');
 select.add(template1, 0);
 select.add(template2, 1);
 select.add(template3, 2);

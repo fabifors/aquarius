@@ -25,6 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
+    document.querySelector('.ql-align').addEventListener('click', () => {
+        templatePicker(findNote(database.currentNote).template);
+    })
+
     document.querySelector('#search-input').addEventListener('keyup', (event) => {
         search(event.target.value);
     });
