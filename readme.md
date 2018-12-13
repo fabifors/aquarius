@@ -1,9 +1,10 @@
+### Quire - A simple and elegant notetaking app
 The project is an in browser rich text editor built upon the open source Quill wysiwyg editor architecture. The app works without a back-end and instead utilizing local storage as storage method. I lets the user create notes, format and style them and save and organize a collection of notes.
 
 The code is has documentation through out and any part that isn't self explanatory will likely be preceded by a comment that explains the following codes purpose. Below you will find an index of the different files in the project.
 
 
-Javascript.
+###Javascript.
 
 The code is structured in a object oriented manner and split in to six javascript files with their own distinct area of concern. The are implemented in index.html in the following order.
 
