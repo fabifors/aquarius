@@ -519,9 +519,9 @@ nav #main-menu li a.active {
     justify-content: center;
     align-items: center;
     z-index: 200;
-    transform: translateY(50%);
+    transform: translateY(100%);
     opacity: 0;
-    transition: transform 200ms ease-out, opacity 200ms ease-in;
+    transition: transform 200ms ease-out, opacity 200ms ease-in 100ms;
 }
 
 .tools-expanded {
