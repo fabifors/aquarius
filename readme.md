@@ -8,22 +8,22 @@ The code has documentation through out and any part that isn't self explanatory 
 
 The code is structured in a object oriented manner and split in to six javascript files with their own distinct area of concern. They are implemented in index.html in the following order.
 
-### Quill.js: 
+### quill.js: 
 this file contains the modifications and initializing of the quill rich text editor. The actual script for Quil is linked by a CDN on line 204 in index.html.
 
-### Global.js: 
+### global.js: 
 contains all the globally used variables, do to scooping issues this file also contains code that deals with the styling templates used by the user of the app.
 
-### Note.js: 
+### note.js: 
 contains the class construct for the note objects that the app uses.
 
-### Database.js: 
+### database.js: 
 Contains code that deals with the note object in relation to local storage and DOM rendering, also in app functionality such as searching and tagging.
 
-### Functions.js: 
+### functions.js: 
 Contains the bulk of function that interact with the app and with writing values to the note objects.
 
-### App.js: 
+### app.js: 
 Contains code that relates to user interaction with the app mainly eventlistener based functions.
 
 
