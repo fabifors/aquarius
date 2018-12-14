@@ -52,6 +52,9 @@ const database = {
             return;
         } else {
             console.log(`Got note with id: ${id}`);
+            if (database.currentNote !== '') {
+                database.saveNote(database.currentNote)
+            }
             database.currentNote = id;
             quill.setContents(note.content);
             select.value = note.template;
