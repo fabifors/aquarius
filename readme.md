@@ -1,3 +1,4 @@
+
 # Quire - A simple and elegant note taking app
 The project is an in browser rich text editor built upon the open source Quill.js *WYSIWYG* editor architecture. The app works without a back-end and instead utilizing local storage as storage method. It lets the user create notes, format and style them and save and organize a collection of notes.
 
@@ -14,41 +15,52 @@ This file contains the modifications and initializing of the quill rich text edi
 Contains all of the globally used variables. Here we declare all the query selectors and element targeting. Due to scooping issues this file also contains code that deals with the styling templates used by the user of the app.<hr>
 
 ### note.js: 
-Contains the class for the Note objects. Every note contains properties for Title, Content, if they are deleted or not etc. The note class also adds methods like ``remove( )``, ``favourite()``  and ``addTag()`` to each note object.<hr>
+Contains the class for the Note objects. Every note contains properties for Title, Content, if they are deleted or not etc. The note class also adds methods like `remove( )`, `favourite()`  and `addTag()` to each note object.<hr>
 
 ### database.js: 
-Contains code that deals with the note object in relation to local storage and DOM rendering, also in app functionality such as searching and tagging. 
+Contains code that deals with the note object in relation to local storage and DOM rendering, also in app functionality such as searching and tagging. We have split up our code into 2 spearate objects. The first one is the database object followed by the DOM object. 
 
-How we import notes:
+The first thing we do is importing the notes from LocalStorage to the `database.notes` array. Then we render the notes to the DOM with `DOM.show` explained further down in the readme.
+
+**How we import notes:**
  1. Get all the notes in to the ``database.notes`` array with ``importNotes()`` function.
- 2. Inside the ``importNotes()`` function we loop through the array from Local Storage and create a new instance of the Note class and push them into the ``database.notes`` array. 
+ 
+2. Inside the ``importNotes()`` function we loop through the array from Local Storage and create a new instance of the Note class and push them into the ``database.notes`` array. 
+<br>
+
 > **Why do we do this?** 
 >When you run ``JSON.stringify()`` on an object with methods only the properties of that object are saved in the output. To add all the methods like ``remove()`` back in to the objects, we run a loop that passes every stringified note as an argument to the Note class.
 
-The main object ``database`` has properties for ``notes``, ``tags`` and ``currentNote`` to keep track of the current opened etc. 
+<br>
+The main object `database` has properties for `notes`, `tags` and `currentNote` to keep track of the current opened etc. 
 
-The ``database`` object also includes the ``init()`` method followed by: ``nukeNote()``, ``openNote()``, ``filter()``, ``newNote()``, ``saveNote()``, ``updateNote()`` and  ``storeNotes()``.
+The `database` object also includes the `init()` method followed by: `nukeNote()`, `openNote()`, `filter()`, `newNote()`, `saveNote()`, `updateNote()` and  `storeNotes()`.
 
-The method that is called the most of these are ``database.filter()``.
+The method that is called the most of these are `database.filter()`.
+<br>
 
 *Example*:
 ```javascript
 	DOM.show(database.filter(favourite));
 ```
-This examples runs the ``DOM.show`` method with the desired filter as an argument. ``database.filter()`` returns an array of notes that we want to be rendered in the DOM. The DOM.show() method first clear the DOM note list and then loops through that array to create a note new element that gets appended to the DOM note list. 
+<br>
+This examples runs the `DOM.show` method with the desired filter as an argument. `database.filter()` returns an array of notes that we want to be rendered in the DOM. 
+
+The `DOM.show()` method first clear the DOM note list and then loops through that array to create a note new element that gets appended to the DOM note list. 
+
+All the functions inside this document are commented and have an explaination above them. 
 
 <hr>
 
 ### functions.js: 
-Contains the bulk of function that interact with the app and with writing values to the note objects.<hr>
+Contains the bulk of function that interact with the app and with writing values to the note objects. Some of the functions that needs explainations have comments above to clarify the purpose of the function. <hr>
 
 ### app.js: 
-Contains code that relates to user interaction with the app mainly eventlistener based functions.
+Contains code that relates to user interaction with the app mainly eventlistener based functions. In this file we also inject the select menu for the template function into the toolbar. 
 
 
 ## HTML: 
 The app has a single page structure and the index.html file is the only html file in the project. Any element not found in this file is therefore injected by javascript.
-
 
 ## CSS: 
 The project contains of four css files with separate areas of concern, there are also five css files accessed through CDN in index.html these are the quil css file as well as icons and fonts.<hr>
